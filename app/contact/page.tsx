@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail, Twitter, Linkedin, Github, ArrowUpRight } from 'lucide-react'
+import { Mail, Github, ArrowUpRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Contact — Yun He',
@@ -7,10 +7,8 @@ export const metadata: Metadata = {
 }
 
 const socials = [
-  { icon: Mail, label: 'Email', value: 'your@email.com', href: 'mailto:your@email.com' },
-  { icon: Twitter, label: 'X', value: '@yourusername', href: 'https://twitter.com/yourusername' },
-  { icon: Linkedin, label: 'LinkedIn', value: '/in/yourusername', href: 'https://linkedin.com/in/yourusername' },
-  { icon: Github, label: 'GitHub', value: '@yourusername', href: 'https://github.com/yourusername' },
+  { icon: Mail, label: 'Email', value: 'hy12693357702@gmail.com', href: 'mailto:hy12693357702@gmail.com' },
+  { icon: Github, label: 'GitHub', value: '@Hygubline', href: 'https://github.com/Hygubline' },
 ]
 
 const openTo = [

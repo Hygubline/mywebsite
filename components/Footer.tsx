@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin } from 'lucide-react'
+import { Github } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -10,28 +10,12 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://twitter.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg text-neutral-500 hover:text-white hover:bg-white/5 transition-all"
-            >
-              <Twitter className="w-4 h-4" />
-            </a>
-            <a
-              href="https://github.com/yourusername"
+              href="https://github.com/Hygubline"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg text-neutral-500 hover:text-white hover:bg-white/5 transition-all"
             >
               <Github className="w-4 h-4" />
-            </a>
-            <a
-              href="https://linkedin.com/in/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg text-neutral-500 hover:text-white hover:bg-white/5 transition-all"
-            >
-              <Linkedin className="w-4 h-4" />
             </a>
           </div>
         </div>
