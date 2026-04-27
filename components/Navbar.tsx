@@ -16,30 +16,33 @@ export default function Navbar() {
   const pathname = usePathname()
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-xl">
-      <div className="max-w-5xl mx-auto px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 py-6">
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="font-semibold text-white tracking-tight hover:text-blue-400 transition-colors"
+            className="text-sm font-medium tracking-[-0.02em] text-white hover:opacity-50 transition-opacity duration-700"
           >
             Yun He
           </Link>
 
-          <div className="flex items-center gap-6">
-            {navItems.slice(1).map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-sm tracking-tight transition-colors ${
-                  pathname === item.href || pathname.startsWith(item.href + '/')
-                    ? 'text-white'
-                    : 'text-neutral-500 hover:text-white'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="flex items-center gap-8">
+            {navItems.slice(1).map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-[12px] tracking-[0.05em] uppercase transition-opacity duration-700 ${
+                    isActive
+                      ? 'text-white opacity-100'
+                      : 'text-white opacity-40 hover:opacity-70'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </div>
         </div>
       </div>
