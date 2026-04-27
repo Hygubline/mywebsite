@@ -43,8 +43,8 @@ export function NavigationDock() {
   const router = useRouter()
 
   return (
-    <div className="py-12">
-      <p className="text-center text-sm text-neutral-600 mb-4">
+    <div className="py-16">
+      <p className="text-center text-[11px] font-mono tracking-[0.2em] uppercase text-[#4a443c] mb-6">
         Explore
       </p>
       <Dock>
@@ -60,7 +60,7 @@ export function NavigationDock() {
               label={item.label}
               onClick={() => router.push(item.href)}
             >
-              <Icon className="h-5 w-5 text-neutral-400" />
+              <Icon className="h-5 w-5 text-[#8a8278]" />
             </DockIcon>
           )
         })}

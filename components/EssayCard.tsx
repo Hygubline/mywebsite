@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { Post } from '@/lib/getPosts'
 
@@ -11,19 +12,24 @@ interface EssayCardProps {
 }
 
 export default function EssayCard({ post, index = 0 }: EssayCardProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-40px' })
+  const prefersReduced = useReducedMotion()
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      ref={ref}
+      initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 1,
-        delay: index * 0.12,
+        duration: 0.9,
+        delay: index * 0.1,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
       <Link
         href={`/writing/${post.slug}`}
-        className="block py-6 border-b border-[#e8e4df]/[0.04] group"
+        className="block py-6 border-b border-[#e8e4df]/[0.04] group hover:border-[#e8e4df]/[0.08] transition-colors duration-700"
       >
         <div className="flex items-start justify-between gap-6">
           <div className="flex items-start gap-6 flex-1">

@@ -1,146 +1,145 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useMousePosition } from '@/lib/useMousePosition'
 
-export function FloatingPapers() {
-  const paperRef = useRef<HTMLDivElement>(null)
-  const [mounted, setMounted] = useState(false)
-  const mousePos = useRef({ x: 0.5, y: 0.5 })
-  const currentTransform = useRef({ x: 0, y: 0, rotateX: 0, rotateY: 0 })
-  const rafId = useRef<number>(0)
+function PaperSheet({
+  width,
+  height,
+  style,
+  lineCount = 8,
+  showFold = true,
+  showCorner = false,
+  showMargin = false,
+  parallaxFactor = 1,
+}: {
+  width: string
+  height: string
+  style: React.CSSProperties
+  lineCount?: number
+  showFold?: boolean
+  showCorner?: boolean
+  showMargin?: boolean
+  parallaxFactor?: number
+}) {
+  const { nx, ny } = useMousePosition()
 
-  const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+  const rotateY = (nx - 0.5) * 16 * parallaxFactor
+  const rotateX = -(ny - 0.5) * 12 * parallaxFactor
+  const tx = (nx - 0.5) * 50 * parallaxFactor
+  const ty = (ny - 0.5) * 30 * parallaxFactor
 
-  const animate = useCallback(() => {
-    const targetRotateY = (mousePos.current.x - 0.5) * 12
-    const targetRotateX = -(mousePos.current.y - 0.5) * 8
-    const targetX = (mousePos.current.x - 0.5) * 30
-    const targetY = (mousePos.current.y - 0.5) * 20
-
-    currentTransform.current.rotateY = lerp(currentTransform.current.rotateY, targetRotateY, 0.03)
-    currentTransform.current.rotateX = lerp(currentTransform.current.rotateX, targetRotateX, 0.03)
-    currentTransform.current.x = lerp(currentTransform.current.x, targetX, 0.03)
-    currentTransform.current.y = lerp(currentTransform.current.y, targetY, 0.03)
-
-    if (paperRef.current) {
-      paperRef.current.style.transform = `
-        translate3d(${currentTransform.current.x}px, ${currentTransform.current.y}px, 0)
-        rotateX(${currentTransform.current.rotateX}deg)
-        rotateY(${currentTransform.current.rotateY}deg)
-      `
-    }
-
-    rafId.current = requestAnimationFrame(animate)
-  }, [])
-
-  useEffect(() => {
-    setMounted(true)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = {
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      }
-    }
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    rafId.current = requestAnimationFrame(animate)
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(rafId.current)
-    }
-  }, [animate])
-
-  if (!mounted) return null
-
-  const lines = Array.from({ length: 9 }, (_, i) => i)
+  const lines = Array.from({ length: lineCount }, (_, i) => i)
 
   return (
-    <div className="hero-paper-container" aria-hidden="true">
-      {/* Main large floating paper */}
-      <div
-        ref={paperRef}
-        className="hero-paper animate-paper-drift"
-        style={{
-          width: 'clamp(280px, 35vw, 500px)',
-          height: 'clamp(380px, 48vw, 680px)',
-          right: '8%',
-          top: '10%',
-          opacity: 0.06,
-          animationDuration: '20s',
-        }}
-      >
-        <div className="hero-paper-surface animate-paper-breathe">
-          <div className="hero-paper-lines">
-            {lines.map((i) => (
-              <div
-                key={i}
-                className="hero-paper-line"
-                style={{
-                  width: `${45 + ((i * 17) % 40)}%`,
-                  marginTop: i === 0 ? '10%' : undefined,
-                }}
-              />
-            ))}
-          </div>
-          <div className="hero-paper-fold" />
-          <div className="hero-paper-corner" />
+    <div
+      className="hero-paper"
+      style={{
+        width,
+        height,
+        ...style,
+        transform: `translate3d(${tx}px, ${ty}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+    >
+      <div className="hero-paper-surface">
+        <div className="hero-paper-lines">
+          {lines.map((i) => (
+            <div
+              key={i}
+              className="hero-paper-line"
+              style={{
+                width: `${35 + ((i * 19) % 50)}%`,
+                marginTop: i === 0 ? '8%' : undefined,
+              }}
+            />
+          ))}
         </div>
+        {showMargin && <div className="hero-paper-margin" />}
+        {showFold && <div className="hero-paper-fold" />}
+        {showCorner && <div className="hero-paper-corner" />}
       </div>
+    </div>
+  )
+}
 
-      {/* Small secondary paper — subtle depth */}
-      <div
-        className="hero-paper animate-paper-drift"
+export function FloatingPapers() {
+  return (
+    <div className="hero-paper-container" aria-hidden="true">
+      {/* Volumetric light cone behind main paper */}
+      <div className="hero-light-cone" />
+
+      {/* Main paper — the centerpiece */}
+      <PaperSheet
+        width="clamp(340px, 42vw, 580px)"
+        height="clamp(460px, 58vw, 800px)"
+        lineCount={14}
+        showFold
+        showCorner
+        showMargin
+        parallaxFactor={1}
         style={{
-          width: 'clamp(100px, 12vw, 160px)',
-          height: 'clamp(140px, 16vw, 220px)',
-          left: '12%',
-          bottom: '18%',
-          opacity: 0.03,
+          right: '4%',
+          top: '4%',
+          opacity: 0.09,
+        }}
+      />
+
+      {/* Mid-distance paper — left side depth */}
+      <PaperSheet
+        width="clamp(140px, 16vw, 200px)"
+        height="clamp(190px, 22vw, 280px)"
+        lineCount={6}
+        showFold
+        parallaxFactor={0.5}
+        style={{
+          left: '8%',
+          bottom: '12%',
+          opacity: 0.04,
+          animationName: 'paperDrift',
           animationDuration: '25s',
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: 'infinite',
           animationDelay: '-8s',
         }}
-      >
-        <div className="hero-paper-surface">
-          <div className="hero-paper-lines">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="hero-paper-line"
-                style={{ width: `${50 + ((i * 13) % 35)}%` }}
-              />
-            ))}
-          </div>
-          <div className="hero-paper-fold" />
-        </div>
-      </div>
+      />
 
-      {/* Tiny distant paper */}
-      <div
-        className="hero-paper animate-paper-drift"
+      {/* Far paper — tiny, subtle depth */}
+      <PaperSheet
+        width="clamp(70px, 8vw, 100px)"
+        height="clamp(90px, 10vw, 130px)"
+        lineCount={3}
+        showFold={false}
+        parallaxFactor={0.25}
         style={{
-          width: 'clamp(60px, 7vw, 90px)',
-          height: 'clamp(80px, 9vw, 120px)',
-          left: '55%',
-          bottom: '8%',
-          opacity: 0.02,
-          animationDuration: '28s',
-          animationDelay: '-14s',
+          left: '48%',
+          bottom: '5%',
+          opacity: 0.025,
+          animationName: 'paperDrift',
+          animationDuration: '30s',
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: 'infinite',
+          animationDelay: '-15s',
         }}
-      >
-        <div className="hero-paper-surface">
-          <div className="hero-paper-lines">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="hero-paper-line"
-                style={{ width: `${40 + i * 15}%` }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      />
+
+      {/* Top-left ghost paper — very faint */}
+      <PaperSheet
+        width="clamp(80px, 9vw, 110px)"
+        height="clamp(110px, 12vw, 150px)"
+        lineCount={4}
+        showFold={false}
+        parallaxFactor={0.35}
+        style={{
+          left: '25%',
+          top: '8%',
+          opacity: 0.02,
+          animationName: 'paperDrift',
+          animationDuration: '22s',
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: 'infinite',
+          animationDelay: '-4s',
+        }}
+      />
     </div>
   )
 }

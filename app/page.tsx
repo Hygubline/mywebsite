@@ -3,7 +3,6 @@ import Section from '@/components/Section'
 import { BentoGrid } from '@/components/BentoGrid'
 import { SkillsSection } from '@/components/SkillsSection'
 import EssayCard from '@/components/EssayCard'
-import { WelcomeIntro } from '@/components/WelcomeIntro'
 import { NavigationDock } from '@/components/NavigationDock'
 import { getProjects } from '@/lib/getProjects'
 import { getPosts } from '@/lib/getPosts'
@@ -16,7 +15,6 @@ export default async function Home() {
 
   return (
     <div>
-      <WelcomeIntro />
       <Hero />
 
       {/* About — like narration */}
@@ -34,7 +32,7 @@ export default async function Home() {
         </div>
       </Section>
 
-      {/* Projects — each feels like a scene */}
+      {/* Projects — immersive case studies */}
       <Section title="Selected Work" number="02" subtitle="Systems I've designed and built">
         <BentoGrid projects={projects.slice(0, 3)} />
       </Section>

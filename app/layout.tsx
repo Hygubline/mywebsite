@@ -6,6 +6,8 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { FloatingPapers } from '@/components/FloatingPapers'
+import { MouseSpotlight } from '@/components/MouseSpotlight'
+import { MouseProvider } from '@/components/MouseProvider'
 
 export const metadata: Metadata = {
   title: 'Yun He — AI Builder & Systems Thinker',
@@ -32,15 +34,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans bg-cinema film-grain vignette">
-        <div className="ambient-glow" />
-        <FloatingPapers />
-        <div className="min-h-screen flex flex-col relative z-[1]">
-          <Navbar />
-          <main className="flex-1 pt-16">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <MouseProvider>
+          <div className="ambient-glow" />
+          <FloatingPapers />
+          <MouseSpotlight />
+          <div className="min-h-screen flex flex-col relative z-[1]">
+            <Navbar />
+            <main className="flex-1 pt-16">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </MouseProvider>
         <Toaster
           position="bottom-right"
           toastOptions={{

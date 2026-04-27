@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 
 const skillCategories = [
@@ -18,17 +18,21 @@ const skillCategories = [
   },
 ]
 
+const ease = [0.16, 1, 0.3, 1] as const
+
 export function SkillsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const prefersReduced = useReducedMotion()
+  const noMotion = { opacity: 1, y: 0 }
 
   return (
     <section className="section-cinema" ref={ref}>
       <div className="container-cinema">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReduced ? noMotion : { opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, ease }}
           className="mb-16 md:mb-20"
         >
           <div className="flex items-baseline gap-6 mb-4">
@@ -41,17 +45,17 @@ export function SkillsSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReduced ? noMotion : { opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.1, delay: 0.25, ease }}
           className="grid grid-cols-1 md:grid-cols-3 gap-16"
         >
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReduced ? noMotion : { opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 + catIndex * 0.15 }}
+              transition={{ duration: 0.8, delay: 0.35 + catIndex * 0.12 }}
             >
               <h3 className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#4a443c] mb-6">
                 {category.title}

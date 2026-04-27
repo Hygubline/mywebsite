@@ -13,6 +13,7 @@ import {
   useSpring,
   useTransform,
   MotionValue,
+  AnimatePresence,
 } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
@@ -51,8 +52,9 @@ export function Dock({ children, className }: DockProps) {
         onMouseEnter={() => setHovered(true)}
         className={cn(
           'mx-auto flex h-14 items-end gap-3 rounded-2xl',
-          'border border-white/10 bg-white/5 backdrop-blur-xl',
+          'border border-[#e8e4df]/[0.08] bg-[#0a0a0a]/80 backdrop-blur-2xl',
           'px-3 pb-2',
+          'shadow-[0_4px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(232,228,223,0.04)]',
           className
         )}
       >
@@ -62,67 +64,9 @@ export function Dock({ children, className }: DockProps) {
   )
 }
 
-interface DockCardProps {
-  children: ReactNode
-  className?: string
-  id?: string
-}
-
-export function DockCard({ children, className }: DockCardProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const { mouseX } = useDock()
-
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 }
-    return val - bounds.x - bounds.width / 2
-  })
-
-  const widthSync = useTransform(distance, [-150, 0, 150], [40, 60, 40])
-  const width = useSpring(widthSync, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  })
-
-  return (
-    <motion.div
-      ref={ref}
-      style={{ width }}
-      className={cn(
-        'aspect-square cursor-pointer',
-        className
-      )}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-interface DockCardInnerProps {
-  children?: ReactNode
-  className?: string
-  src?: string
-  id?: string
-}
-
-export function DockCardInner({ children, className, src }: DockCardInnerProps) {
-  return (
-    <div
-      className={cn(
-        'flex h-full w-full items-center justify-center rounded-xl',
-        src ? 'bg-cover bg-center' : 'bg-white/5',
-        className
-      )}
-      style={src ? { backgroundImage: `url(${src})` } : undefined}
-    >
-      {children}
-    </div>
-  )
-}
-
 export function DockDivider() {
   return (
-    <div className="mx-1 h-8 w-px bg-white/10 self-center" />
+    <div className="mx-1 h-8 w-px bg-[#e8e4df]/[0.06] self-center" />
   )
 }
 
@@ -134,7 +78,7 @@ interface DockIconProps {
   className?: string
 }
 
-export function DockIcon({ children, label, href, onClick, className }: DockIconProps) {
+export function DockIcon({ children, label, onClick, className }: DockIconProps) {
   const ref = useRef<HTMLDivElement>(null)
   const { mouseX } = useDock()
   const [isHovered, setIsHovered] = useState(false)
@@ -144,14 +88,14 @@ export function DockIcon({ children, label, href, onClick, className }: DockIcon
     return val - bounds.x - bounds.width / 2
   })
 
-  const widthSync = useTransform(distance, [-150, 0, 150], [40, 56, 40])
+  const widthSync = useTransform(distance, [-150, 0, 150], [40, 58, 40])
   const width = useSpring(widthSync, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   })
 
-  const content = (
+  return (
     <motion.div
       ref={ref}
       style={{ width }}
@@ -163,28 +107,24 @@ export function DockIcon({ children, label, href, onClick, className }: DockIcon
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      <div className="flex h-full w-full items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all">
+      <div className="flex h-full w-full items-center justify-center rounded-xl bg-[#e8e4df]/[0.03] border border-[#e8e4df]/[0.06] hover:bg-[#e8e4df]/[0.06] hover:border-[#e8e4df]/[0.12] transition-all duration-300">
         {children}
       </div>
 
       {/* Tooltip */}
-      <motion.div
-        initial={{ opacity: 0, y: 4 }}
-        animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 4 }}
-        className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-white/10 backdrop-blur-xl border border-white/10 text-white text-xs rounded-lg whitespace-nowrap pointer-events-none"
-      >
-        {label}
-      </motion.div>
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 4, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.96 }}
+            transition={{ duration: 0.15 }}
+            className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-[#0a0a0a]/90 backdrop-blur-xl border border-[#e8e4df]/[0.08] text-[#e8e4df] text-[10px] tracking-[0.05em] rounded-lg whitespace-nowrap pointer-events-none"
+          >
+            {label}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
-
-  if (href) {
-    return (
-      <a href={href}>
-        {content}
-      </a>
-    )
-  }
-
-  return content
 }
