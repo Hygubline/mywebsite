@@ -30,7 +30,15 @@
       "Bash(npx -y @gltf-transform/cli resize public/lanyard/card-orig.glb public/lanyard/card-tmp.glb --width 1024 --height 1024)",
       "Bash(npx -y @gltf-transform/cli webp public/lanyard/card-tmp.glb public/lanyard/card.glb)",
       "Bash(rm -f public/lanyard/card-tmp.glb public/lanyard/card-orig.glb)",
-      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('public/lanyard/card.glb'\\);const i=b.indexOf\\(Buffer.from\\('JSON'\\)\\);const len=b.readUInt32LE\\(12\\);const json=JSON.parse\\(b.slice\\(20,20+len\\).toString\\(\\)\\);console.log\\('nodes:',json.nodes.map\\(n=>n.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('meshes:',json.meshes.map\\(m=>m.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('materials:',json.materials.map\\(m=>m.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('images:',json.images.map\\(im=>im.mimeType\\).join\\(', '\\)\\);\")"
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('public/lanyard/card.glb'\\);const i=b.indexOf\\(Buffer.from\\('JSON'\\)\\);const len=b.readUInt32LE\\(12\\);const json=JSON.parse\\(b.slice\\(20,20+len\\).toString\\(\\)\\);console.log\\('nodes:',json.nodes.map\\(n=>n.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('meshes:',json.meshes.map\\(m=>m.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('materials:',json.materials.map\\(m=>m.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('images:',json.images.map\\(im=>im.mimeType\\).join\\(', '\\)\\);\")",
+      "Bash(git mv *)",
+      "Bash(git rm *)",
+      "Bash(rm -f \"app/writing/[slug]/page.tsx\")",
+      "Bash(rmdir \"app/writing/[slug]\")",
+      "Read(//c/Users/hy126/AppData/Local/Temp/claude/C--Users-hy126-Desktop-myweb/3b4fec32-ebe2-409c-9177-23ac8028e054/tasks/**)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000__TRACKED_VAR__)",
+      "Bash(curl -s -o /dev/null -w '%{http_code} -> %{redirect_url}' -L -o /dev/null http://localhost:3000__TRACKED_VAR__)",
+      "Bash(curl -s -o /dev/null -w '%{redirect_url}' http://localhost:3000__TRACKED_VAR__)"
     ]
   }
 }

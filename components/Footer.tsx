@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="py-8 border-t border-white/[0.06]">
+    <footer className="py-10 border-t border-border">
       <div className="section-container flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-xs text-muted">
-          &copy; {new Date().getFullYear()} Yun He. Built with Next.js & Tailwind CSS.
+          &copy; {new Date().getFullYear()} Yun He · tending this garden slowly, in the open.
         </p>
         <div className="flex items-center gap-6">
           <a

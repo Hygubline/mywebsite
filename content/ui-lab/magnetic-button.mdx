@@ -1,0 +1,23 @@
+---
+title: Magnetic Button
+date: 2026-05-28
+demo: magnetic-button
+summary: A button that leans toward your cursor as you approach, then springs back when you leave. A tiny bit of physics goes a long way.
+tags:
+  - micro-interaction
+  - motion
+---
+
+A button doesn't need to sit still. This one tracks the cursor while you hover nearby and gently translates toward it, with the label drifting a little further than the container so it feels like it has weight.
+
+## The idea
+
+The whole effect is two numbers: the cursor's offset from the button's center, scaled down. Move the element a fraction of that offset, move the label a slightly larger fraction, and let a spring handle the return.
+
+## What I learned
+
+- The *spring* on the way back matters more than the follow on the way in. A linear reset feels cheap; an overshoot feels alive.
+- Clamping the pull distance keeps it from sliding off into the void on a big screen.
+- Respect `prefers-reduced-motion` — the effect should simply not run for people who opt out.
+
+Try it below. Move your cursor toward the button.

@@ -1,65 +1,41 @@
 import { MetadataRoute } from 'next'
 import { getProjects } from '@/lib/getProjects'
-import { getPosts } from '@/lib/getPosts'
+import { getCollection } from '@/lib/content'
+
+const baseUrl = 'https://yunhe.dev' // Update with your domain
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://yunhe.dev' // Update with your domain
-
   const projects = await getProjects()
-  const posts = await getPosts()
+  const notes = getCollection('notes')
+  const reading = getCollection('reading')
+  const uiLab = getCollection('ui-lab')
 
-  const projectUrls = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: baseUrl, priority: 1, changeFrequency: 'weekly' as const },
+    { url: `${baseUrl}/notes`, priority: 0.9, changeFrequency: 'weekly' as const },
+    { url: `${baseUrl}/ui-lab`, priority: 0.9, changeFrequency: 'weekly' as const },
+    { url: `${baseUrl}/projects`, priority: 0.9, changeFrequency: 'weekly' as const },
+    { url: `${baseUrl}/reading`, priority: 0.8, changeFrequency: 'weekly' as const },
+    { url: `${baseUrl}/about`, priority: 0.7, changeFrequency: 'monthly' as const },
+  ].map((route) => ({ ...route, lastModified: new Date() }))
 
-  const postUrls = posts.map((post) => ({
-    url: `${baseUrl}/writing/${post.slug}`,
-    lastModified: new Date(post.date),
+  const collectionRoutes: MetadataRoute.Sitemap = [
+    ...notes.map((e) => ({ path: `notes/${e.slug}`, date: e.date })),
+    ...reading.map((e) => ({ path: `reading/${e.slug}`, date: e.date })),
+    ...uiLab.map((e) => ({ path: `ui-lab/${e.slug}`, date: e.date })),
+  ].map(({ path, date }) => ({
+    url: `${baseUrl}/${path}`,
+    lastModified: new Date(date),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/writing`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/now`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/philosophy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    ...projectUrls,
-    ...postUrls,
-  ]
+  const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  return [...staticRoutes, ...collectionRoutes, ...projectRoutes]
 }

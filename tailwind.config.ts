@@ -13,19 +13,26 @@ const config: Config = {
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
       colors: {
-        background: '#0b0f1a',
+        // Warm "night studio" base — a deep, slightly warm dark rather than
+        // a cold navy, so the whole place feels cozy instead of corporate.
+        background: '#100e0c',
         surface: {
-          DEFAULT: '#111827',
-          light: '#1a2332',
+          DEFAULT: '#191613',
+          light: '#221e1a',
         },
-        foreground: '#e2e8f0',
-        muted: '#94a3b8',
+        foreground: '#ece6dd',
+        muted: '#9b9085',
+        // Primary accent: a warm amber, like lamplight.
+        warm: '#e0a371',
+        clay: '#c97c5d',
+        sage: '#8aa394',
+        // Kept for backwards compatibility with older sections/components.
         accent: {
           cyan: '#22d3ee',
           blue: '#3b82f6',
           gold: '#f59e0b',
         },
-        border: 'rgba(148, 163, 184, 0.1)',
+        border: 'rgba(236, 230, 221, 0.08)',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-out forwards',

@@ -6,10 +6,19 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'kern' 1, 'liga' 1;
+    /* a faint warm vignette so the page feels lamp-lit, not flat */
+    background-image:
+      radial-gradient(900px 600px at 12% -10%, rgba(224, 163, 113, 0.06), transparent 60%),
+      radial-gradient(700px 500px at 100% 0%, rgba(138, 163, 148, 0.05), transparent 55%);
+    background-attachment: fixed;
   }
 
   ::selection {
-    @apply bg-accent-cyan/20 text-white;
+    @apply bg-warm/25 text-foreground;
+  }
+
+  h1 {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight text-foreground;
   }
 }
 
@@ -17,21 +26,105 @@
   .section-container {
     @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-12;
   }
+
+  /* Standard inner page wrapper (used by content + utility pages). Adds top
+     padding to clear the fixed navbar. */
+  .container-main {
+    @apply max-w-3xl mx-auto px-5 sm:px-8 pt-28 pb-24;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-border bg-surface/60 backdrop-blur-sm
+           transition-colors duration-300 hover:border-warm/25;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center rounded-lg bg-warm px-5 py-2.5 text-sm
+           font-medium text-background transition-colors duration-200 hover:bg-warm/90;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center rounded-lg border border-border px-5 py-2.5
+           text-sm font-medium text-foreground transition-colors duration-200 hover:bg-white/5;
+  }
+
+  /* Editorial archive card used by Notes / Reading lists. */
+  .archive-card {
+    @apply relative overflow-hidden rounded-2xl border border-border bg-surface/40
+           transition-all duration-500 hover:border-warm/30 hover:bg-surface/70;
+  }
+
+  .archive-card-highlight {
+    @apply pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(224, 163, 113, 0.08),
+      transparent 45%
+    );
+  }
+  .archive-card:hover .archive-card-highlight {
+    @apply opacity-100;
+  }
+
+  /* Long-form reading styles for rendered markdown bodies. */
+  .prose {
+    @apply text-[0.975rem] leading-[1.85] text-muted;
+  }
+  .prose > * + * {
+    @apply mt-5;
+  }
+  .prose h2 {
+    @apply mt-12 mb-2 text-xl font-semibold tracking-tight text-foreground;
+  }
+  .prose h3 {
+    @apply mt-8 mb-1 text-lg font-medium tracking-tight text-foreground;
+  }
+  .prose p {
+    @apply text-muted;
+  }
+  .prose strong {
+    @apply font-semibold text-foreground;
+  }
+  .prose em {
+    @apply italic text-foreground/90;
+  }
+  .prose a {
+    @apply text-warm underline decoration-warm/30 underline-offset-4 transition-colors hover:decoration-warm;
+  }
+  .prose code {
+    @apply rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-foreground/90;
+  }
+  .prose ul {
+    @apply list-disc space-y-2 pl-5 marker:text-warm/50;
+  }
+  .prose ol {
+    @apply list-decimal space-y-2 pl-5 marker:text-warm/50;
+  }
+  .prose blockquote {
+    @apply border-l-2 border-warm/40 pl-5 italic text-foreground/80;
+  }
+
+  /* Animation helper: hidden until GSAP/Reveal promotes it to .is-visible.
+     Falls back to visible when JS or motion is unavailable. */
+  .reveal-init {
+    opacity: 0;
+    transform: translateY(24px);
+  }
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.15);
-  border-radius: 2px;
+  background: rgba(224, 163, 113, 0.2);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(224, 163, 113, 0.4);
 }
 
 /* Smooth scroll */
@@ -47,5 +140,9 @@ html {
   * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
