@@ -1,28 +1,19 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import { Toaster } from 'sonner'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { FloatingPapers } from '@/components/FloatingPapers'
-import { MouseSpotlight } from '@/components/MouseSpotlight'
-import { MouseProvider } from '@/components/MouseProvider'
 
 export const metadata: Metadata = {
-  title: 'Yun He — AI Builder & Systems Thinker',
-  description: 'Building systems with AI. Designing tools, structuring ideas, and exploring leverage in the age of intelligence.',
-  keywords: ['AI', 'Builder', 'Systems Thinking', 'Software Engineering', 'Product Design'],
+  title: 'Yun He — Software Developer',
+  description: 'Computer Science student building web applications, data tools, and practical software for real-world business needs.',
+  keywords: ['Software Engineer', 'Web Developer', 'React', 'Next.js', 'Python', 'TypeScript'],
   authors: [{ name: 'Yun He' }],
   openGraph: {
-    title: 'Yun He — AI Builder & Systems Thinker',
-    description: 'Building systems with AI. Designing tools, structuring ideas, and exploring leverage in the age of intelligence.',
+    title: 'Yun He — Software Developer',
+    description: 'Computer Science student building web applications, data tools, and practical software.',
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Yun He — AI Builder & Systems Thinker',
-    description: 'Building systems with AI.',
   },
 }
 
@@ -33,31 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="font-sans bg-cinema film-grain vignette">
-        <MouseProvider>
-          <div className="ambient-glow" />
-          <FloatingPapers />
-          <MouseSpotlight />
-          <div className="min-h-screen flex flex-col relative z-[1]">
-            <Navbar />
-            <main className="flex-1 pt-16">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </MouseProvider>
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: 'rgba(10, 10, 10, 0.9)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(232, 228, 223, 0.06)',
-              color: '#e8e4df',
-              fontFamily: 'var(--font-geist-sans)',
-            },
-          }}
-        />
+      <body className="font-sans bg-background text-foreground">
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )

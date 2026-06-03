@@ -1,54 +1,97 @@
 'use client'
 
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
-import { Project } from '@/lib/getProjects'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { ExternalLink, Github } from 'lucide-react'
 
 interface ProjectCardProps {
-  project: Project
-  index?: number
+  title: string
+  description: string
+  techStack: string[]
+  highlights: string[]
+  buttons: { label: string; href: string; icon: 'github' | 'external' | 'details' }[]
+  badge?: string
+  index: number
 }
 
-export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+export default function ProjectCard({
+  title,
+  description,
+  techStack,
+  highlights,
+  buttons,
+  badge,
+  index,
+}: ProjectCardProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 1,
-        delay: index * 0.12,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group relative rounded-xl border border-white/[0.06] bg-surface hover:bg-surface-light hover:border-white/[0.1] transition-all duration-300 hover:shadow-xl hover:shadow-black/20 overflow-hidden"
     >
-      <Link href={`/projects/${project.slug}`} className="block scene-card p-6 md:p-8 group">
-        <div className="flex items-start justify-between gap-6">
-          <div className="flex items-start gap-6 flex-1">
-            <span className="text-[11px] font-mono tracking-[0.2em] text-[#4a443c] mt-1">
-              {String(index + 1).padStart(2, '0')}
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      <div className="p-6 sm:p-8">
+        <div className="flex items-start justify-between mb-4">
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground group-hover:text-accent-cyan transition-colors duration-200">
+            {title}
+          </h3>
+          {badge && (
+            <span className="text-xs px-2 py-1 rounded-full bg-accent-gold/10 text-accent-gold border border-accent-gold/20 shrink-0 ml-3">
+              {badge}
             </span>
-            <div className="flex-1">
-              <h3 className="font-medium text-[#e8e4df]/90 tracking-[-0.02em] group-hover:text-[#e8e4df] transition-colors duration-700">
-                {project.title}
-              </h3>
-              <p className="text-[#6b6359] text-sm mt-2 leading-[1.7]">{project.subtitle}</p>
-            </div>
-          </div>
-          <ArrowUpRight className="w-4 h-4 text-[#4a443c] group-hover:text-[#e8e4df] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-700 flex-shrink-0" />
+          )}
         </div>
-        {project.techStack && project.techStack.length > 0 && (
-          <div className="flex flex-wrap gap-4 mt-6 ml-[calc(1.5rem+2ch)]">
-            {project.techStack.slice(0, 4).map((tech) => (
-              <span
-                key={tech}
-                className="text-[11px] font-mono tracking-wide text-[#4a443c]"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
-      </Link>
+
+        {/* Tech stack tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {techStack.map((tech) => (
+            <span
+              key={tech}
+              className="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] text-muted border border-white/[0.06]"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <p className="text-sm text-muted leading-relaxed mb-5">
+          {description}
+        </p>
+
+        {/* Highlights */}
+        <ul className="space-y-2 mb-6">
+          {highlights.map((h, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-muted/80">
+              <span className="text-accent-cyan mt-1 shrink-0">&#8226;</span>
+              {h}
+            </li>
+          ))}
+        </ul>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap gap-3">
+          {buttons.map((btn) => (
+            <a
+              key={btn.label}
+              href={btn.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-lg border border-white/[0.08] text-muted hover:text-foreground hover:border-white/[0.15] hover:bg-white/[0.04] transition-all duration-200"
+            >
+              {btn.icon === 'github' && <Github size={14} />}
+              {btn.icon === 'external' && <ExternalLink size={14} />}
+              {btn.label}
+            </a>
+          ))}
+        </div>
+      </div>
     </motion.div>
   )
 }

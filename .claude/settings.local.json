@@ -8,7 +8,29 @@
       "Bash(npm run build:*)",
       "Bash(git init:*)",
       "Bash(git commit:*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(mkdir -p \"C:/Users/hy126/desktop/myweb/public/lanyard\")",
+      "Bash(curl -L -o \"C:/Users/hy126/desktop/myweb/public/lanyard/card.glb\" \"https://raw.githubusercontent.com/DavidHDev/react-bits/main/src/assets/lanyard/card.glb\")",
+      "Bash(curl -L -o \"C:/Users/hy126/desktop/myweb/public/lanyard/lanyard.png\" \"https://raw.githubusercontent.com/DavidHDev/react-bits/main/src/assets/lanyard/lanyard.png\")",
+      "Bash(npm run *)",
+      "mcp__plugin_everything-claude-code_playwright__browser_navigate",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}  %{size_download} bytes\\\\n\" http://localhost:3000/lanyard/card.glb)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}  %{size_download} bytes\\\\n\" http://localhost:3000/lanyard/lanyard.png)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(npx -y gltf-pipeline -i public/lanyard/card.glb -o public/lanyard/card-draco.glb -d)",
+      "Bash(rm -f public/lanyard/card-draco.glb)",
+      "Bash(npx -y @gltf-transform/cli inspect public/lanyard/card.glb)",
+      "Bash(grep -iA 12 \"textures\\\\|meshes\")",
+      "Bash(npx -y @gltf-transform/cli optimize public/lanyard/card.glb public/lanyard/card-opt.glb --compress false --texture-compress webp --texture-size 1024)",
+      "Bash(curl -s -o /dev/null -w \"card.glb: status=%{http_code} size=%{size_download}\\\\n\" http://localhost:3000/lanyard/card.glb)",
+      "Bash(curl -s -o /dev/null -w \"page /: status=%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -L -o public/lanyard/card-orig.glb \"https://raw.githubusercontent.com/DavidHDev/react-bits/main/src/assets/lanyard/card.glb\")",
+      "Bash(awk '{print $5}')",
+      "Bash(npx -y @gltf-transform/cli resize public/lanyard/card-orig.glb public/lanyard/card-tmp.glb --width 1024 --height 1024)",
+      "Bash(npx -y @gltf-transform/cli webp public/lanyard/card-tmp.glb public/lanyard/card.glb)",
+      "Bash(rm -f public/lanyard/card-tmp.glb public/lanyard/card-orig.glb)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('public/lanyard/card.glb'\\);const i=b.indexOf\\(Buffer.from\\('JSON'\\)\\);const len=b.readUInt32LE\\(12\\);const json=JSON.parse\\(b.slice\\(20,20+len\\).toString\\(\\)\\);console.log\\('nodes:',json.nodes.map\\(n=>n.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('meshes:',json.meshes.map\\(m=>m.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('materials:',json.materials.map\\(m=>m.name\\).filter\\(Boolean\\).join\\(', '\\)\\);console.log\\('images:',json.images.map\\(im=>im.mimeType\\).join\\(', '\\)\\);\")"
     ]
   }
 }

@@ -1,27 +1,33 @@
-import { Github } from 'lucide-react'
-
 export default function Footer() {
   return (
-    <footer className="relative py-24 md:py-32">
-      <div className="divider-cinema mb-16" />
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col gap-8">
-          <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#4a443c]">
-            Fin.
-          </p>
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-[#4a443c] tracking-wide">
-              {new Date().getFullYear()} Yun He
-            </p>
-            <a
-              href="https://github.com/Hygubline"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#4a443c] hover:text-[#8a8278] transition-colors duration-700"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-          </div>
+    <footer className="py-8 border-t border-white/[0.06]">
+      <div className="section-container flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-xs text-muted">
+          &copy; {new Date().getFullYear()} Yun He. Built with Next.js & Tailwind CSS.
+        </p>
+        <div className="flex items-center gap-6">
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted hover:text-foreground transition-colors"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted hover:text-foreground transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:hy1269335770@gmail.com"
+            className="text-xs text-muted hover:text-foreground transition-colors"
+          >
+            Email
+          </a>
         </div>
       </div>
     </footer>
