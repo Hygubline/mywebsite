@@ -1,0 +1,18 @@
+---
+title: "Cursor Glow Effect"
+date: "2026-05-24"
+excerpt: "A soft amber light that trails the cursor, making a dark interface feel lamp-lit."
+tags: ["cursor", "ambient", "interaction"]
+status: "finished"
+preview: "cursor"
+---
+
+A fixed, full-screen radial gradient anchored to the pointer position, updated on a single `requestAnimationFrame` per move so it never thrashes layout. Desktop and fine-pointer only, and disabled entirely for reduced-motion.
+
+## What I learned
+
+- Throttle to one `rAF` per `mousemove` — without it the effect can drop frames on big screens.
+- Keep the opacity *very* low (~6%). It should be felt more than seen.
+- It has to know when to disappear: no glow on touch devices, none when motion is reduced.
+
+This one isn't in a demo box — it's live across the whole site. Move your mouse around and notice the warmth following you.

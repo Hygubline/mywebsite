@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react'
+import Tag from '@/components/Tag'
 
 interface Props {
   params: { slug: string }
@@ -10,81 +11,71 @@ interface Props {
 
 export async function generateStaticParams() {
   const projects = await getProjects()
-  return projects.map((project) => ({
-    slug: project.slug,
-  }))
+  return projects.map((project) => ({ slug: project.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = await getProjectBySlug(params.slug)
   if (!project) return { title: 'Project Not Found' }
-
-  return {
-    title: `${project.title} — Yun He`,
-    description: project.subtitle,
-  }
+  return { title: `${project.title} — Yun He`, description: project.subtitle }
 }
 
 export default async function ProjectPage({ params }: Props) {
   const project = await getProjectBySlug(params.slug)
+  if (!project) notFound()
 
-  if (!project) {
-    notFound()
-  }
-
+  // Prefer the personal framing, falling back to the older field names.
   const sections = [
-    { title: 'Problem', content: project.problem },
-    { title: 'Design', content: project.design },
-    { title: 'Lessons Learned', content: project.lessons },
-    { title: 'Next Steps', content: project.nextSteps },
+    { title: 'Why I made it', content: project.why ?? project.problem },
+    { title: 'What I learned', content: project.learned ?? project.lessons },
+    { title: 'What I’d improve', content: project.improve ?? project.nextSteps },
   ].filter((s) => s.content)
 
   return (
     <div className="container-main">
       <Link
         href="/projects"
-        className="inline-flex items-center gap-2 mb-8 text-neutral-500 hover:text-white transition-colors group"
+        className="group mb-10 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
       >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
         Back to projects
       </Link>
 
       <article>
-        <header className="mb-12">
-          <h1 className="mb-4">{project.title}</h1>
-          <p className="text-xl text-neutral-400">{project.subtitle}</p>
+        <header className="mb-10 border-b border-border pb-8">
+          <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            {project.title}
+          </h1>
+          {project.subtitle && <p className="text-lg text-muted">{project.subtitle}</p>}
         </header>
 
-        <div className="grid gap-6">
+        <div className="grid gap-4">
           {sections.map((section) => (
-            <div key={section.title} className="glass-card p-6">
-              <h2 className="text-lg font-semibold text-white mb-4 tracking-tight">
+            <div key={section.title} className="glass p-6">
+              <h2 className="mb-3 text-base font-semibold tracking-tight text-foreground">
                 {section.title}
               </h2>
-              <p className="text-neutral-400 leading-relaxed">{section.content}</p>
+              <p className="leading-relaxed text-muted">{section.content}</p>
             </div>
           ))}
 
-          {project.techStack && project.techStack.length > 0 && (
-            <div className="glass-card p-6">
-              <h2 className="text-lg font-semibold text-white mb-4 tracking-tight">
-                Tech Stack
+          {project.techStack?.length ? (
+            <div className="glass p-6">
+              <h2 className="mb-4 text-base font-semibold tracking-tight text-foreground">
+                Tech stack
               </h2>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-neutral-300"
-                  >
+                  <Tag key={tech} tone="warm">
                     {tech}
-                  </span>
+                  </Tag>
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
 
           {(project.github || project.live) && (
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3 pt-2">
               {project.github && (
                 <a
                   href={project.github}
@@ -92,8 +83,7 @@ export default async function ProjectPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="btn-secondary"
                 >
-                  <Github className="w-4 h-4 mr-2" />
-                  View Source
+                  <Github className="h-4 w-4" /> View source
                 </a>
               )}
               {project.live && (
@@ -103,8 +93,7 @@ export default async function ProjectPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="btn-primary"
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Live Demo
+                  <ExternalLink className="h-4 w-4" /> Live demo
                 </a>
               )}
             </div>

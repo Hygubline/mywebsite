@@ -8,11 +8,17 @@ export interface Project {
   slug: string
   title: string
   subtitle: string
+  // personal framing
+  why?: string
+  learned?: string
+  improve?: string
+  // legacy / optional
   problem?: string
   design?: string
   techStack?: string[]
   lessons?: string
   nextSteps?: string
+  tags?: string[]
   github?: string
   live?: string
   featured?: boolean
@@ -37,11 +43,15 @@ export async function getProjects(): Promise<Project[]> {
         slug,
         title: data.title || slug,
         subtitle: data.subtitle || '',
+        why: data.why,
+        learned: data.learned,
+        improve: data.improve,
         problem: data.problem,
         design: data.design,
         techStack: data.techStack,
         lessons: data.lessons,
         nextSteps: data.nextSteps,
+        tags: data.tags,
         github: data.github,
         live: data.live,
         featured: data.featured || false,

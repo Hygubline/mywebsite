@@ -1,19 +1,22 @@
 import type { Metadata } from 'next'
 import { Github, Linkedin, Mail, MapPin, GraduationCap } from 'lucide-react'
-import PageHeader from '@/components/PageHeader'
+import SectionTitle from '@/components/SectionTitle'
+import Tag from '@/components/Tag'
 import Reveal from '@/components/anim/Reveal'
 
 export const metadata: Metadata = {
   title: 'About — Yun He',
-  description: 'Who I am, what I’m learning, and how to reach me.',
+  description: 'Who I am, and why this little corner of the internet exists.',
 }
 
 const learning = [
-  'Front-end animation — GSAP, motion, and the small details that make interfaces feel alive',
-  'Design systems and how to make a personal site feel cohesive',
-  'Writing more, and editing less harshly',
-  'Reading with intention and keeping notes that survive past the last page',
+  'Front-end animation — GSAP, motion, and the small details that make an interface feel alive',
+  'Design systems, and how to make a personal site feel like one coherent place',
+  'Writing more, and editing myself a little less harshly',
+  'Reading with intention, and keeping notes that survive past the last page',
 ]
+
+const tools = ['Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Framer Motion', 'Python', 'Figma']
 
 const links = [
   { label: 'GitHub', href: 'https://github.com', Icon: Github },
@@ -24,24 +27,24 @@ const links = [
 export default function AboutPage() {
   return (
     <div className="container-main">
-      <PageHeader
+      <SectionTitle
+        as="h1"
         eyebrow="About"
         title="Hi, I’m Yun."
-        intro="This site is less a portfolio and more a place to think out loud."
+        intro="Less a portfolio, more a place to think out loud."
+        className="mb-10"
       />
 
       <Reveal className="prose">
         <p>
-          I’m a Computer Science student at Hunter College in New York. I like building
-          things for the web — especially the small, expressive details: a button that
-          leans toward your cursor, a page that fades in just so, an interface that feels
-          considered.
+          I study computer science, build small web things, and use this site as a place to
+          collect thoughts, experiments, reading notes, and unfinished ideas. I’m especially
+          drawn to the expressive corners of front-end work — a button that leans toward your
+          cursor, a page that fades in just so, an interface that feels considered.
         </p>
         <p>
-          This corner of the internet is where I collect ideas, run little front-end
-          experiments, write notes to myself, and keep track of what I’m reading. It’s a
-          garden, not a résumé — things here are half-grown on purpose. I’m figuring it out
-          as I go, in the open.
+          This corner of the internet is a garden, not a résumé. Things here are half-grown on
+          purpose. <strong>It’s not meant to be perfect. It’s meant to grow.</strong>
         </p>
       </Reveal>
 
@@ -57,6 +60,17 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
+      </Reveal>
+
+      <Reveal className="mt-12">
+        <h2 className="mb-5 text-xl font-semibold tracking-tight text-foreground">Tools I use</h2>
+        <div className="flex flex-wrap gap-2.5">
+          {tools.map((tool) => (
+            <Tag key={tool} tone="warm">
+              {tool}
+            </Tag>
+          ))}
+        </div>
       </Reveal>
 
       <Reveal className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted">
@@ -77,7 +91,7 @@ export default function AboutPage() {
               href={href}
               target={href.startsWith('http') ? '_blank' : undefined}
               rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-foreground transition-colors hover:border-warm/30 hover:bg-white/5"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-foreground transition-colors hover:border-warm/30 hover:bg-white/5"
             >
               <Icon className="h-4 w-4 text-warm" />
               {label}

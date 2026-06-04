@@ -2,19 +2,27 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
+import CursorGlow from '@/components/CursorGlow'
 
 export const metadata: Metadata = {
-  title: 'Yun He — a personal digital garden',
+  title: 'Yun He — Digital Garden',
   description:
-    'My corner of the internet — a place where I collect ideas, build small experiments, write notes, and slowly figure things out.',
-  keywords: ['digital garden', 'notes', 'UI experiments', 'reading notes', 'front-end', 'creative coding'],
+    'A quiet, cinematic corner of the internet — thoughts, front-end experiments, reading reflections, and unfinished ideas, floating like fragments in a personal archive.',
+  keywords: [
+    'digital garden',
+    'thought archive',
+    'UI lab',
+    'front-end experiments',
+    'reading notes',
+    'creative coding',
+  ],
   authors: [{ name: 'Yun He' }],
   openGraph: {
-    title: 'Yun He — a personal digital garden',
+    title: 'Yun He — Digital Garden',
     description:
-      'A place where I collect ideas, build small experiments, write notes, and slowly figure things out.',
+      'A personal corner of the internet for thoughts, front-end experiments, reading reflections, and unfinished ideas.',
     type: 'website',
   },
 }
@@ -27,9 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans bg-background text-foreground">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <CursorGlow />
+        <SiteHeader />
+        <main className="relative z-10">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   )

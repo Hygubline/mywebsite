@@ -1,42 +1,64 @@
-'use client'
+import { NotebookPen, FlaskConical, Hammer, BookOpen, Sparkles } from 'lucide-react'
+import Reveal from '@/components/anim/Reveal'
+import BentoCard, { type BentoCardProps } from '@/components/BentoCard'
 
-import { useRef } from 'react'
-import Link from 'next/link'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { Project } from '@/lib/getProjects'
-import { CaseStudyCard } from './CaseStudyCard'
+/** The portal: five rooms of the garden, arranged as a bento grid. */
+const cards: (BentoCardProps & { span: string })[] = [
+  {
+    href: '/notes',
+    title: 'Notes',
+    description: 'Personal essays, stray thoughts, and learning reflections.',
+    Icon: NotebookPen,
+    accent: 'warm',
+    span: 'sm:col-span-2 sm:row-span-2',
+  },
+  {
+    href: '/ui-lab',
+    title: 'UI Lab',
+    description: 'Front-end motion experiments and interface ideas I want to learn.',
+    Icon: FlaskConical,
+    accent: 'iris',
+    span: 'sm:col-span-2',
+  },
+  {
+    href: '/projects',
+    title: 'Projects',
+    description: 'Small things I’ve made, and what each one quietly taught me.',
+    Icon: Hammer,
+    accent: 'sage',
+    span: 'sm:col-span-1',
+  },
+  {
+    href: '/reading',
+    title: 'Reading',
+    description: 'Notes from books and ideas that stayed with me.',
+    Icon: BookOpen,
+    accent: 'gold',
+    span: 'sm:col-span-1',
+  },
+  {
+    href: '/about',
+    title: 'About',
+    description: 'Who I am, and why this little corner exists.',
+    Icon: Sparkles,
+    accent: 'clay',
+    span: 'sm:col-span-2',
+  },
+]
 
-interface BentoGridProps {
-  projects: Project[]
-}
-
-export function BentoGrid({ projects }: BentoGridProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-40px' })
-  const prefersReduced = useReducedMotion()
-
+export default function BentoGrid() {
   return (
-    <div ref={ref} className="space-y-[1px]">
-      {projects.map((project, index) => (
-        <CaseStudyCard key={project.slug} project={project} index={index} />
+    <Reveal
+      stagger={0.09}
+      className="grid auto-rows-[minmax(150px,1fr)] grid-cols-1 gap-4 sm:grid-cols-4"
+    >
+      {cards.map(({ span, ...card }) => (
+        // Reveal animates this plain wrapper; MagneticCard owns the inner
+        // transform — keeping GSAP and Framer from fighting over the same node.
+        <div key={card.href} className={span}>
+          <BentoCard {...card} className="h-full" />
+        </div>
       ))}
-
-      {/* View all link */}
-      <motion.div
-        initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1.0, delay: projects.length * 0.15 + 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="pt-8"
-      >
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-3 text-[12px] tracking-[0.1em] uppercase text-[#4a443c] hover:text-[#8a8278] transition-colors duration-700 group"
-        >
-          View full archive
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-700" />
-        </Link>
-      </motion.div>
-    </div>
+    </Reveal>
   )
 }

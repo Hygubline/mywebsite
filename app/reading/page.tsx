@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import PageHeader from '@/components/PageHeader'
-import EntryCard from '@/components/EntryCard'
+import SectionTitle from '@/components/SectionTitle'
+import ContentCard from '@/components/ContentCard'
 import ReadingShelf from '@/components/ReadingShelf'
 import Reveal from '@/components/anim/Reveal'
 import { getCollection } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Reading — Yun He',
-  description: 'Notes on books and articles, so I actually remember them.',
+  description: 'Notes from books, literature, and ideas that stayed with me.',
 }
 
 export default function ReadingPage() {
@@ -15,10 +15,12 @@ export default function ReadingPage() {
 
   return (
     <div className="container-main">
-      <PageHeader
+      <SectionTitle
+        as="h1"
         eyebrow="Reading"
-        title="What I’m reading"
-        intro="Notes on books and articles that left a mark — what stuck, and how I want to use it. Less a review, more a memory aid."
+        title="What stayed with me"
+        intro="Reflections on books and literature — the ideas that lingered, and the single sentence I never want to forget from each one."
+        className="mb-12"
       />
 
       <ReadingShelf />
@@ -26,9 +28,15 @@ export default function ReadingPage() {
       {reading.length === 0 ? (
         <p className="text-muted">No reading notes yet — check back soon.</p>
       ) : (
-        <Reveal stagger={0.08} className="space-y-3">
+        <Reveal stagger={0.08} className="space-y-4">
           {reading.map((entry, i) => (
-            <EntryCard key={entry.slug} entry={entry} basePath="/reading" index={i} />
+            <ContentCard
+              key={entry.slug}
+              entry={entry}
+              basePath="/reading"
+              index={i}
+              showReadTime={false}
+            />
           ))}
         </Reveal>
       )}

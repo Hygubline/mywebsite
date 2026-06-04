@@ -1,0 +1,18 @@
+---
+title: "Page Transition"
+date: "2026-05-12"
+excerpt: "A soft cross-fade and lift between routes, so navigating feels like turning a page, not cutting to one."
+tags: ["transition", "routing", "motion"]
+status: "idea"
+preview: "transition"
+---
+
+Right now navigating between pages here is instant. I'd like the leaving page to settle down and fade while the new one rises in — a quiet beat that makes the whole site feel like one continuous space.
+
+## Open questions
+
+- Next.js App Router transitions are still fiddly — `View Transitions API` or a Framer `AnimatePresence` wrapper?
+- How to avoid a layout flash on slower loads.
+- Keeping it fast: the transition should shave milliseconds off the *feeling*, never add real delay.
+
+On the wishlist.

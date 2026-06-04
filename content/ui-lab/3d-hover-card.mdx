@@ -1,0 +1,19 @@
+---
+title: "3D Hover Card"
+date: "2026-05-30"
+excerpt: "A card that tilts in three dimensions toward your cursor, with a glare that tracks the light."
+tags: ["3d", "hover", "motion"]
+status: "finished"
+demo: "tilt-card"
+preview: "tilt"
+---
+
+Map the cursor's position over the card to a pair of rotation values, apply them with `perspective` and `transformStyle: preserve-3d`, and add a radial glare that follows the same coordinates. A spring smooths the motion so it never feels twitchy.
+
+## What I learned
+
+- `perspective` lives on the *parent*, not the card itself — easy to forget.
+- The glare sells the depth more than the rotation does. Without it the tilt looks like a flat skew.
+- Clamp the rotation to ~15–18°. Past that it stops reading as "a card" and starts reading as "a glitch".
+
+Move your cursor across the card below.

@@ -1,48 +1,45 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import Hero from '@/components/Hero'
-import HomeBento from '@/components/HomeBento'
-import EntryCard from '@/components/EntryCard'
-import Reveal from '@/components/anim/Reveal'
-import { getCollection } from '@/lib/content'
+import BentoGrid from '@/components/BentoGrid'
+import RecentlyAdded from '@/components/RecentlyAdded'
+import CurrentlyExploring from '@/components/CurrentlyExploring'
+import SectionTitle from '@/components/SectionTitle'
 
 export default function Home() {
-  const recentNotes = getCollection('notes').slice(0, 3)
-
   return (
     <>
       <Hero />
-      <HomeBento />
 
-      {recentNotes.length > 0 && (
-        <section className="section-container pb-28">
-          <Reveal>
-            <div className="mb-8 flex items-end justify-between">
-              <div>
-                <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                  Lately
-                </p>
-                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                  From the notebook
-                </h2>
-              </div>
-              <Link
-                href="/notes"
-                className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-warm"
-              >
-                All notes
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </Reveal>
+      <section className="section-container py-20 sm:py-28">
+        <SectionTitle
+          eyebrow="Wander around"
+          title="Five rooms in the garden"
+          intro="Every door leads somewhere half-finished. Pick one and have a look."
+          className="mb-10"
+        />
+        <BentoGrid />
+      </section>
 
-          <Reveal stagger={0.1} className="space-y-3">
-            {recentNotes.map((note, i) => (
-              <EntryCard key={note.slug} entry={note} basePath="/notes" index={i} />
-            ))}
-          </Reveal>
-        </section>
-      )}
+      <section className="section-container pb-8">
+        <SectionTitle
+          eyebrow="Lately"
+          title="Recently added"
+          className="mb-8"
+          action={
+            <Link
+              href="/notes"
+              className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-warm"
+            >
+              All notes
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          }
+        />
+        <RecentlyAdded />
+      </section>
+
+      <CurrentlyExploring />
     </>
   )
 }

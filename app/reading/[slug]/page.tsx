@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { ExternalLink, Star } from 'lucide-react'
+import { ExternalLink, Star, Quote } from 'lucide-react'
 import ArticleView from '@/components/ArticleView'
 import { getCollection, getEntry } from '@/lib/content'
 
@@ -54,7 +54,29 @@ export default function ReadingNotePage({ params }: Props) {
     </div>
   )
 
+  const beforeBody = (
+    <>
+      {meta}
+      {entry.favorite && (
+        <div className="glass mb-10 flex gap-4 p-6">
+          <Quote className="h-5 w-5 shrink-0 text-warm/70" />
+          <div>
+            <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-warm/70">
+              Favorite idea
+            </p>
+            <p className="text-base italic leading-relaxed text-foreground/90">{entry.favorite}</p>
+          </div>
+        </div>
+      )}
+    </>
+  )
+
   return (
-    <ArticleView entry={entry} backHref="/reading" backLabel="Back to reading" beforeBody={meta} />
+    <ArticleView
+      entry={entry}
+      backHref="/reading"
+      backLabel="Back to reading"
+      beforeBody={beforeBody}
+    />
   )
 }

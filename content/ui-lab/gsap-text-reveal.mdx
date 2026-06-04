@@ -1,0 +1,23 @@
+---
+title: "GSAP Text Reveal"
+date: "2026-06-01"
+excerpt: "Words rising out of a clipped line, one after another — the calm, cinematic entrance I use across this whole site."
+tags: ["gsap", "typography", "motion"]
+status: "finished"
+demo: "text-reveal"
+preview: "text"
+---
+
+The reveal that opens almost every page here. Each word sits inside a thin overflow-hidden wrapper and starts pushed 120% below the baseline; GSAP slides them up with a soft `power4.out` ease and a small stagger.
+
+## Why I like it
+
+Text that simply fades in feels flat. Text that *rises into place* feels like it's arriving — like someone is setting the words down in front of you.
+
+## What I learned
+
+- Wrap each word in its own clipping mask so the upward motion is hidden until the word lands.
+- Keep the stagger small (40–60ms). Anything slower starts to feel like a loading screen.
+- `yPercent` is friendlier than pixel offsets — it scales with the font size automatically.
+
+Hit replay below to watch it again.

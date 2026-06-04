@@ -10,6 +10,9 @@ import type { ComponentType } from 'react'
  */
 const demos: Record<string, ComponentType> = {
   'magnetic-button': dynamic(() => import('./MagneticButton'), { ssr: false }),
+  'tilt-card': dynamic(() => import('./TiltCard'), { ssr: false }),
+  'animated-gradient': dynamic(() => import('./AnimatedGradient'), { ssr: false }),
+  'text-reveal': dynamic(() => import('./TextRevealDemo'), { ssr: false }),
 }
 
 export function getDemo(key?: string): ComponentType | null {
