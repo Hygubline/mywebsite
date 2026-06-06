@@ -7,11 +7,12 @@ import SiteFooter from '@/components/SiteFooter'
 import CursorGlow from '@/components/CursorGlow'
 
 export const metadata: Metadata = {
-  title: 'Yun He — Digital Garden',
+  title: 'Yun He — Digital Archive',
   description:
-    'A quiet, cinematic corner of the internet — thoughts, front-end experiments, reading reflections, and unfinished ideas, floating like fragments in a personal archive.',
+    'A living collection of code, projects, notes, books, and fragments of thought — a quiet, cinematic personal archive by Yun He.',
   keywords: [
-    'digital garden',
+    'digital archive',
+    'personal website',
     'thought archive',
     'UI lab',
     'front-end experiments',
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Yun He' }],
   openGraph: {
-    title: 'Yun He — Digital Garden',
+    title: 'Yun He — Digital Archive',
     description:
-      'A personal corner of the internet for thoughts, front-end experiments, reading reflections, and unfinished ideas.',
+      'A living collection of code, projects, notes, books, and fragments of thought.',
     type: 'website',
   },
 }

@@ -72,13 +72,46 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-warm px-6 py-3 text-sm
-           font-medium text-background transition-all duration-200
-           hover:bg-warm/90 hover:shadow-lg hover:shadow-warm/20;
+    @apply relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-warm
+           px-6 py-3 text-sm font-medium text-background transition-all duration-200
+           hover:bg-warm/90 hover:shadow-lg hover:shadow-warm/25;
+  }
+  /* A light streak that sweeps across the button on hover. */
+  .btn-primary::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.45) 50%,
+      transparent 70%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-primary:hover::before {
+    transform: translateX(130%);
   }
   .btn-secondary {
-    @apply inline-flex items-center gap-2 rounded-full border border-border px-6 py-3
-           text-sm font-medium text-foreground transition-colors duration-200 hover:bg-white/5;
+    @apply relative inline-flex items-center gap-2 rounded-full border border-border px-6 py-3
+           text-sm font-medium text-foreground transition-all duration-300
+           hover:border-warm/30 hover:bg-white/5;
+  }
+
+  /* Soft conic/radial spotlight behind the hero title. */
+  .hero-spotlight {
+    background: radial-gradient(
+      circle at 50% 42%,
+      rgba(227, 168, 111, 0.16),
+      rgba(140, 123, 214, 0.08) 35%,
+      transparent 68%
+    );
+  }
+
+  /* Warm-to-iris gradient text for the archive wordmark. */
+  .text-archive-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #ece4d6 0%, #e3a86f 45%, #8c7bd6 100%);
   }
 
   /* Animated gradient mesh, used for hero/preview backdrops. */

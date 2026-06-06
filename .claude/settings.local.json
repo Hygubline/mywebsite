@@ -39,7 +39,14 @@
       "Bash(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000__TRACKED_VAR__)",
       "Bash(curl -s -o /dev/null -w '%{http_code} -> %{redirect_url}' -L -o /dev/null http://localhost:3000__TRACKED_VAR__)",
       "Bash(curl -s -o /dev/null -w '%{redirect_url}' http://localhost:3000__TRACKED_VAR__)",
-      "Bash(npm start *)"
+      "Bash(npm start *)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(echo \"TS EXIT: $?\")",
+      "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
+      "Bash(netstat -ano)",
+      "Bash(curl -s -o /dev/null -w \"root: %{http_code} \\(%{time_total}s\\)\\\\n\" --max-time 30 http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"layout.js: %{http_code} \\(%{time_total}s\\)\\\\n\" --max-time 30 http://localhost:3000/_next/static/chunks/app/layout.js)"
     ]
   }
 }

@@ -13,9 +13,9 @@ export default function Home() {
 
       <section className="section-container py-20 sm:py-28">
         <SectionTitle
-          eyebrow="Wander around"
-          title="Five rooms in the garden"
-          intro="Every door leads somewhere half-finished. Pick one and have a look."
+          eyebrow="The collection"
+          title="Wings of the archive"
+          intro="Notes, experiments, projects, reading — each a different shelf in the same quiet room. Pick one and wander in."
           className="mb-10"
         />
         <BentoGrid />
