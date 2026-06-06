@@ -10,6 +10,7 @@ const navLinks = [
   { label: 'Notes', href: '/notes' },
   { label: 'UI Lab', href: '/ui-lab' },
   { label: 'Projects', href: '/projects' },
+  { label: 'Personal OS', href: '/personal-os' },
   { label: 'Reading', href: '/reading' },
   { label: 'About', href: '/about' },
 ]
