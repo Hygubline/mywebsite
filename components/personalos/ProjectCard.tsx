@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import type { Project } from '@/lib/personalOs'
 import Tag from '@/components/Tag'
-import ProgressBar from './ProgressBar'
+import CircularProgress from './CircularProgress'
 import StatusBadge from './StatusBadge'
 
 interface ProjectCardProps {
@@ -11,24 +11,21 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div className="glass-card glow-hover flex flex-col rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1">
-      <div className="flex items-start justify-between gap-3">
-        <div>
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
           <h3 className="text-base font-semibold tracking-tight text-foreground">{project.name}</h3>
           <p className="mt-1 text-sm text-muted">{project.stage}</p>
         </div>
-        <StatusBadge status={project.status} />
+        <CircularProgress value={project.progress} tone="warm" size={56} strokeWidth={4} />
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        <StatusBadge status={project.status} />
         {project.tech.map((t) => (
           <Tag key={t} tone="iris">
             {t}
           </Tag>
         ))}
-      </div>
-
-      <div className="mt-5">
-        <ProgressBar value={project.progress} tone="warm" />
       </div>
 
       <div className="mt-5 flex items-start gap-2 border-t border-border pt-4 text-sm text-muted">

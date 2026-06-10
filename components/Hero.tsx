@@ -4,10 +4,18 @@ import AnimatedText from '@/components/AnimatedText'
 import FloatingFragments from '@/components/FloatingFragments'
 import MagneticCard from '@/components/MagneticCard'
 
+/** Identity labels — edit these to change how you introduce yourself. */
+const identityTags = [
+  'CS Student',
+  'Frontend Learner',
+  'AI-assisted Builder',
+  'Personal Website Explorer',
+]
+
 /**
- * The entrance to the archive. A large wordmark that reveals line by line over
- * a soft animated gradient mesh, a radial spotlight, drifting glass fragments,
- * and magnetic call-to-action buttons.
+ * The entrance to the site — a personal digital space. A large wordmark reveals
+ * line by line over a soft animated gradient mesh, followed by identity labels,
+ * a short personal statement, and magnetic call-to-action buttons.
  */
 export default function Hero() {
   return (
@@ -25,7 +33,7 @@ export default function Hero() {
         >
           <span className="h-2 w-2 animate-pulse-soft rounded-full bg-warm" />
           <span className="text-xs font-medium tracking-wide text-muted">
-            Personal Digital Archive · est. 2026
+            Personal digital space · est. 2026
           </span>
         </div>
 
@@ -41,30 +49,46 @@ export default function Hero() {
           className="text-archive-gradient mt-3 animate-slide-up text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl"
           style={{ animationDelay: '0.85s', opacity: 0, animationFillMode: 'forwards' }}
         >
-          Digital Archive
+          Learning in public
         </p>
 
-        <p
-          className="mt-8 max-w-xl animate-slide-up text-lg leading-relaxed text-foreground/80 sm:text-xl"
-          style={{ animationDelay: '1.1s', opacity: 0, animationFillMode: 'forwards' }}
+        {/* identity labels */}
+        <div
+          className="mt-7 flex animate-slide-up flex-wrap gap-2.5"
+          style={{ animationDelay: '1.0s', opacity: 0, animationFillMode: 'forwards' }}
         >
-          A living collection of code, projects, notes, books, and fragments of
-          thought — slowly assembled into a small personal world.
+          {identityTags.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/40 px-3.5 py-1.5 text-sm text-foreground/80 backdrop-blur-md transition-colors hover:border-warm/30 hover:text-foreground"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-warm/80" />
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <p
+          className="mt-7 max-w-xl animate-slide-up text-lg leading-relaxed text-foreground/80 sm:text-xl"
+          style={{ animationDelay: '1.15s', opacity: 0, animationFillMode: 'forwards' }}
+        >
+          I’m building a personal digital space to record what I learn, what I
+          build, and how I grow.
         </p>
 
         <div
           className="mt-10 flex animate-slide-up flex-wrap items-center gap-4"
-          style={{ animationDelay: '1.3s', opacity: 0, animationFillMode: 'forwards' }}
+          style={{ animationDelay: '1.35s', opacity: 0, animationFillMode: 'forwards' }}
         >
           <MagneticCard strength={0.3} className="inline-block">
-            <Link href="/notes" className="btn-primary">
-              Enter the archive
+            <Link href="/projects" className="btn-primary">
+              View projects
               <ArrowRight className="relative h-4 w-4" />
             </Link>
           </MagneticCard>
           <MagneticCard strength={0.25} className="inline-block">
-            <Link href="/ui-lab" className="btn-secondary">
-              Front-end experiments
+            <Link href="/personal-os" className="btn-secondary">
+              Open Personal OS
             </Link>
           </MagneticCard>
         </div>

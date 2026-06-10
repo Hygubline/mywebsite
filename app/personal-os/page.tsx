@@ -6,7 +6,8 @@ import StatCard from '@/components/personalos/StatCard'
 import GoalCard from '@/components/personalos/GoalCard'
 import ProjectCard from '@/components/personalos/ProjectCard'
 import WeeklyPlan from '@/components/personalos/WeeklyPlan'
-import { yearGoals, weeklyPlan, projects, dashboardStats } from '@/lib/personalOs'
+import SkillBar from '@/components/personalos/SkillBar'
+import { yearGoals, weeklyPlan, projects, learningStack, dashboardStats } from '@/lib/personalOs'
 
 export const metadata: Metadata = {
   title: 'Personal OS — Yun He',
@@ -76,6 +77,28 @@ export default function PersonalOsPage() {
           {projects.map((project) => (
             <ProjectCard key={project.name} project={project} />
           ))}
+        </Reveal>
+      </section>
+
+      {/* Learning Progress */}
+      <section className="mt-16">
+        <SectionTitle
+          eyebrow="Skills"
+          title="Learning Progress"
+          intro="An honest snapshot of where I am — these move as I keep building."
+          className="mb-6"
+        />
+        <Reveal className="glass-card rounded-2xl p-6 sm:p-8">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2">
+            {learningStack.map((skill) => (
+              <SkillBar
+                key={skill.label}
+                label={skill.label}
+                value={skill.value}
+                level={skill.level}
+              />
+            ))}
+          </div>
         </Reveal>
       </section>
     </div>

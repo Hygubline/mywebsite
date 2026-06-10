@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes ambientDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(1.5%, -1.5%, 0) scale(1.04);
+  }
+}
+
+@keyframes ambientDriftSlow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-1.25%, 1.25%, 0) scale(1.03);
+  }
+}
+
 @layer base {
   body {
     @apply bg-background text-foreground antialiased;
@@ -35,6 +53,110 @@
 }
 
 @layer components {
+  .ambient-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .home-hero-shell {
+    background:
+      radial-gradient(1200px 680px at 20% 14%, rgba(216, 149, 74, 0.09), transparent 46%),
+      radial-gradient(980px 720px at 84% 16%, rgba(255, 255, 255, 0.04), transparent 28%),
+      linear-gradient(180deg, #060607 0%, #08090b 42%, #050506 100%);
+  }
+
+  .lab-panel {
+    background:
+      linear-gradient(180deg, rgba(15, 15, 16, 0.92), rgba(8, 8, 9, 0.95)),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 36px 90px -62px rgba(0, 0, 0, 0.95);
+  }
+
+  .lab-card {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 22px 50px -38px rgba(0, 0, 0, 0.9);
+  }
+
+  .work-page-shell {
+    background:
+      radial-gradient(1200px 700px at 72% 12%, rgba(216, 149, 74, 0.08), transparent 34%),
+      radial-gradient(960px 720px at 18% 88%, rgba(255, 255, 255, 0.035), transparent 24%),
+      linear-gradient(180deg, #050506 0%, #070708 100%);
+  }
+
+  .ambient-background {
+    position: absolute;
+    inset: 0;
+  }
+
+  .ambient-background__glow,
+  .ambient-background__noise,
+  .ambient-background__grid,
+  .ambient-background__scanlines {
+    position: absolute;
+    inset: 0;
+  }
+
+  .ambient-background__glow {
+    opacity: 0.22;
+    background:
+      radial-gradient(54rem 34rem at 20% 16%, rgba(216, 149, 74, 0.16), transparent 52%),
+      radial-gradient(42rem 28rem at 78% 14%, rgba(255, 255, 255, 0.045), transparent 42%),
+      radial-gradient(44rem 34rem at 52% 88%, rgba(216, 149, 74, 0.08), transparent 50%);
+    filter: blur(14px);
+    animation: ambientDrift 24s ease-in-out infinite alternate;
+  }
+
+  .ambient-background__glow-secondary {
+    opacity: 0.12;
+    background:
+      radial-gradient(30rem 24rem at 76% 24%, rgba(216, 149, 74, 0.14), transparent 44%),
+      radial-gradient(26rem 22rem at 18% 70%, rgba(255, 255, 255, 0.04), transparent 38%);
+    filter: blur(20px);
+    animation: ambientDriftSlow 32s ease-in-out infinite alternate;
+  }
+
+  .ambient-background__noise {
+    opacity: 0.028;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .ambient-background__grid {
+    opacity: 0.032;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.72) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.72) 1px, transparent 1px);
+    background-size: 112px 112px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 92%);
+  }
+
+  .ambient-background__scanlines {
+    opacity: 0.028;
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.18) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 90%);
+  }
+
+  .ambient-background-work .ambient-background__glow {
+    background:
+      radial-gradient(58rem 32rem at 72% 14%, rgba(216, 149, 74, 0.18), transparent 48%),
+      radial-gradient(36rem 26rem at 16% 78%, rgba(255, 255, 255, 0.04), transparent 40%),
+      radial-gradient(38rem 28rem at 42% 54%, rgba(216, 149, 74, 0.06), transparent 48%);
+  }
+
+  .ambient-background-work .ambient-background__glow-secondary {
+    background:
+      radial-gradient(30rem 20rem at 24% 18%, rgba(255, 255, 255, 0.035), transparent 38%),
+      radial-gradient(34rem 26rem at 78% 62%, rgba(216, 149, 74, 0.1), transparent 42%);
+  }
+
   .section-container {
     @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-12;
   }
@@ -159,6 +281,17 @@
     @apply border-l-2 border-warm/40 pl-5 italic text-foreground/80;
   }
 
+  /* Standing book on the reading shelf: turned to reveal its spine, then
+     straightens and lifts when its group is hovered. */
+  .book-3d {
+    transform: rotateY(-24deg);
+    transform-origin: left center;
+    transform-style: preserve-3d;
+  }
+  .group:hover .book-3d {
+    transform: rotateY(0deg) translateY(-10px) scale(1.04);
+  }
+
   .reveal-init {
     opacity: 0;
     transform: translateY(24px);
@@ -170,6 +303,204 @@
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  .bookshelf-pill {
+    @apply inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-sm transition;
+    border-color: rgba(227, 168, 111, 0.25);
+    background: rgba(227, 168, 111, 0.1);
+    color: #e3a86f;
+  }
+  .bookshelf-pill:hover {
+    border-color: rgba(227, 168, 111, 0.4);
+    background: rgba(227, 168, 111, 0.15);
+  }
+
+  .bookshelf-pill-muted {
+    @apply inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-sm text-foreground/80 transition;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .bookshelf-pill-muted:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ece4d6;
+  }
+
+  .bookshelf-stage {
+    @apply relative min-h-[420px] overflow-hidden rounded-[2.2rem] border bg-[#11100d];
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 40px 80px -50px rgba(0, 0, 0, 0.95);
+  }
+
+  .bookshelf-shell {
+    position: absolute;
+    inset: 1rem;
+    border-radius: 3rem;
+    background:
+      linear-gradient(180deg, rgba(93, 82, 67, 0.95), rgba(53, 46, 38, 0.98)),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      inset 0 -18px 35px rgba(0, 0, 0, 0.35),
+      0 30px 60px -50px rgba(0, 0, 0, 0.9);
+  }
+
+  .bookshelf-cavity {
+    position: absolute;
+    background:
+      linear-gradient(180deg, rgba(14, 13, 11, 0.92), rgba(26, 22, 18, 0.95)),
+      radial-gradient(circle at 50% 100%, rgba(227, 168, 111, 0.18), transparent 55%);
+    box-shadow:
+      inset 0 10px 24px rgba(255, 255, 255, 0.02),
+      inset 0 -18px 28px rgba(0, 0, 0, 0.55),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+
+  .bookshelf-cavity-main {
+    inset: 4.1rem 11rem 4.25rem 14rem;
+    border-radius: 2rem 1.8rem 1.6rem 1.6rem;
+  }
+
+  .bookshelf-cavity-top {
+    top: 2rem;
+    right: 1.7rem;
+    width: 13rem;
+    height: 10.5rem;
+    border-radius: 2.25rem 2.25rem 1.5rem 1.8rem;
+  }
+
+  .bookshelf-cavity-bottom {
+    right: 1.7rem;
+    bottom: 1.7rem;
+    width: 13.25rem;
+    height: 9.75rem;
+    border-radius: 1.5rem 1.5rem 1.8rem 1.8rem;
+  }
+
+  .bookshelf-plinth {
+    position: absolute;
+    left: 3.5rem;
+    right: 9.5rem;
+    bottom: 1.45rem;
+    height: 2.15rem;
+    border-radius: 1.25rem;
+    background: linear-gradient(180deg, #5a4f42, #2b2520);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 12px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .bookshelf-feature-card {
+    position: absolute;
+    left: 2.25rem;
+    top: 6.25rem;
+    z-index: 3;
+    width: min(16.75rem, calc(100% - 13rem));
+    border-radius: 1.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.96), rgba(11, 11, 11, 0.96));
+    padding: 1.5rem;
+    box-shadow:
+      0 24px 40px -28px rgba(0, 0, 0, 0.95),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .bookshelf-feature-book {
+    position: absolute;
+    left: calc(50% - 3.5rem);
+    top: 4.5rem;
+    z-index: 2;
+    width: 14rem;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 28px 55px -32px rgba(0, 0, 0, 0.95),
+      0 12px 18px rgba(0, 0, 0, 0.45);
+  }
+
+  .bookshelf-vase {
+    position: absolute;
+    top: 3rem;
+    right: 3.55rem;
+    z-index: 2;
+    width: 7rem;
+    height: 8.5rem;
+  }
+
+  .bookshelf-vase-bloom {
+    position: absolute;
+    inset: 0 0 2.4rem;
+    background:
+      radial-gradient(circle at 50% 20%, rgba(227, 168, 111, 0.42), transparent 26%),
+      radial-gradient(circle at 36% 40%, rgba(227, 168, 111, 0.18), transparent 18%),
+      radial-gradient(circle at 64% 45%, rgba(227, 168, 111, 0.16), transparent 18%);
+    filter: blur(1px);
+    opacity: 0.95;
+  }
+
+  .bookshelf-vase-pot {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 3.6rem;
+    height: 4.4rem;
+    transform: translateX(-50%);
+    border-radius: 999px 999px 40% 40%;
+    background:
+      radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.12), transparent 30%),
+      linear-gradient(180deg, #272421, #0a0a0a);
+    box-shadow: 0 16px 25px -18px rgba(0, 0, 0, 0.95);
+  }
+
+  .bookshelf-spines {
+    position: absolute;
+    right: 2.45rem;
+    bottom: 2.05rem;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 8rem;
+  }
+
+  .bookshelf-spine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7.25rem;
+    padding-inline: 0.35rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 16px 28px -18px rgba(0, 0, 0, 0.9);
+  }
+
+  .bookshelf-spine span {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: rgba(236, 228, 214, 0.68);
+  }
+
+  .bookshelf-panel {
+    @apply rounded-[1.85rem] border p-5 sm:p-7;
+    border-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.95), rgba(10, 10, 10, 0.92));
+    box-shadow: 0 30px 80px -55px rgba(0, 0, 0, 0.95);
+  }
+
+  .bookshelf-note-button {
+    @apply inline-flex items-center gap-2 rounded-[0.9rem] border px-4 py-3 text-sm uppercase tracking-[0.18em] text-[#dac7af] transition;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .bookshelf-note-button:hover {
+    border-color: rgba(227, 168, 111, 0.3);
+    color: #e3a86f;
   }
 }
 
@@ -206,5 +537,132 @@ html {
   .reveal-init {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .ambient-background__glow,
+  .ambient-background__glow-secondary {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .bookshelf-stage {
+    min-height: 520px;
+  }
+
+  .bookshelf-cavity-main {
+    inset: 12rem 2rem 9.5rem 2rem;
+  }
+
+  .bookshelf-cavity-top {
+    top: 2rem;
+    right: 2rem;
+    width: 9.5rem;
+    height: 8rem;
+  }
+
+  .bookshelf-cavity-bottom {
+    right: 2rem;
+    bottom: 2rem;
+    width: 10.5rem;
+    height: 8.5rem;
+  }
+
+  .bookshelf-plinth {
+    left: 2rem;
+    right: 2rem;
+  }
+
+  .bookshelf-feature-card {
+    left: 1.5rem;
+    right: 1.5rem;
+    top: 1.5rem;
+    width: auto;
+  }
+
+  .bookshelf-feature-book {
+    left: 2.5rem;
+    top: 15.5rem;
+    width: 11rem;
+  }
+
+  .bookshelf-vase {
+    top: 2.5rem;
+    right: 2.75rem;
+    width: 5.5rem;
+    height: 7rem;
+  }
+
+  .bookshelf-spines {
+    right: 2.6rem;
+    bottom: 2.35rem;
+    gap: 0.25rem;
+  }
+
+  .bookshelf-spine {
+    height: 6.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .bookshelf-stage {
+    min-height: 580px;
+  }
+
+  .bookshelf-shell {
+    inset: 0.75rem;
+    border-radius: 2.2rem;
+  }
+
+  .bookshelf-cavity-main {
+    inset: 14.5rem 1.2rem 8.75rem 1.2rem;
+  }
+
+  .bookshelf-cavity-top {
+    top: 2.25rem;
+    right: 1.25rem;
+    width: 7.25rem;
+    height: 6.6rem;
+  }
+
+  .bookshelf-cavity-bottom {
+    right: 1.25rem;
+    bottom: 1.5rem;
+    width: 9rem;
+    height: 7.8rem;
+  }
+
+  .bookshelf-plinth {
+    left: 1.2rem;
+    right: 1.2rem;
+  }
+
+  .bookshelf-feature-card {
+    left: 1rem;
+    right: 1rem;
+    top: 1rem;
+    padding: 1.2rem;
+  }
+
+  .bookshelf-feature-book {
+    left: 1.4rem;
+    top: 18.25rem;
+    width: 9rem;
+  }
+
+  .bookshelf-vase {
+    top: 2.8rem;
+    right: 1.8rem;
+    width: 4.5rem;
+    height: 5.7rem;
+  }
+
+  .bookshelf-spines {
+    right: 1.6rem;
+    bottom: 1.85rem;
+  }
+
+  .bookshelf-spine span {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
   }
 }

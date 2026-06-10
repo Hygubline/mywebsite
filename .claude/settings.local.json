@@ -46,7 +46,13 @@
       "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
       "Bash(netstat -ano)",
       "Bash(curl -s -o /dev/null -w \"root: %{http_code} \\(%{time_total}s\\)\\\\n\" --max-time 30 http://localhost:3000/)",
-      "Bash(curl -s -o /dev/null -w \"layout.js: %{http_code} \\(%{time_total}s\\)\\\\n\" --max-time 30 http://localhost:3000/_next/static/chunks/app/layout.js)"
+      "Bash(curl -s -o /dev/null -w \"layout.js: %{http_code} \\(%{time_total}s\\)\\\\n\" --max-time 30 http://localhost:3000/_next/static/chunks/app/layout.js)",
+      "Bash(node *)",
+      "Bash(sed -n '1,20p' content/projects/focusflow.mdx)",
+      "Bash(sed -n '1,20p' content/projects/knowledge-graph.mdx)",
+      "Bash(sed -n '1,40p' app/contact/page.tsx)",
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(npx next lint --file app/reading/page.tsx --file components/bookshelf/Bookshelf.tsx --file components/bookshelf/BookCard.tsx --file components/bookshelf/FeaturedBook.tsx --file components/bookshelf/BookCover.tsx --file lib/books.ts)"
     ]
   }
 }

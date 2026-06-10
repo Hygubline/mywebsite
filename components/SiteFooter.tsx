@@ -16,37 +16,39 @@ const socials = [
 
 export default function SiteFooter() {
   return (
-    <footer className="relative z-10 mt-10 border-t border-border">
-      <div className="section-container py-12">
-        <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
-          <div className="max-w-xs">
-            <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
-              <span className="inline-block h-2 w-2 rounded-full bg-warm" />
+    <footer className="relative z-10 border-t border-white/[0.07] bg-[#060607]">
+      <div className="section-container py-10">
+        <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-sm">
+            <Link
+              href="/"
+              className="flex items-center gap-3 text-[0.78rem] uppercase tracking-[0.28em] text-[#f4efe7]"
+            >
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#d39b59]" />
               Yun He
             </Link>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              A quiet corner of the internet, tended slowly and out in the open. Not meant to
-              be perfect — meant to grow.
+            <p className="mt-4 text-sm leading-7 text-[#8e857b]">
+              Personal digital lab for projects, books, notes, and technical studies.
             </p>
           </div>
 
-          <div className="flex gap-16">
+          <div className="flex gap-12">
             <nav className="flex flex-col gap-2.5">
-              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted/60">
-                Garden
+              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[#6e665f]">
+                Index
               </p>
               {sections.map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}
-                  className="text-sm text-muted transition-colors hover:text-foreground"
+                  className="text-sm text-[#8e857b] transition-colors hover:text-[#f4efe7]"
                 >
                   {s.label}
                 </Link>
               ))}
             </nav>
             <nav className="flex flex-col gap-2.5">
-              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted/60">
+              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[#6e665f]">
                 Elsewhere
               </p>
               {socials.map((s) => (
@@ -55,7 +57,7 @@ export default function SiteFooter() {
                   href={s.href}
                   target={s.href.startsWith('http') ? '_blank' : undefined}
                   rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="text-sm text-muted transition-colors hover:text-foreground"
+                  className="text-sm text-[#8e857b] transition-colors hover:text-[#f4efe7]"
                 >
                   {s.label}
                 </a>
@@ -64,8 +66,8 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <p className="mt-10 text-xs text-muted/60">
-          &copy; {new Date().getFullYear()} Yun He · built with Next.js, Tailwind & GSAP.
+        <p className="mt-10 text-[0.68rem] uppercase tracking-[0.22em] text-[#625b54]">
+          &copy; {new Date().getFullYear()} Yun He | built with Next.js, Tailwind, and motion.
         </p>
       </div>
     </footer>

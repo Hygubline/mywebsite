@@ -3,6 +3,7 @@ import { Github, Linkedin, Mail, MapPin, GraduationCap } from 'lucide-react'
 import SectionTitle from '@/components/SectionTitle'
 import Tag from '@/components/Tag'
 import Reveal from '@/components/anim/Reveal'
+import VisitedGlobe from '@/components/VisitedGlobe'
 
 export const metadata: Metadata = {
   title: 'About — Yun He',
@@ -71,6 +72,13 @@ export default function AboutPage() {
             </Tag>
           ))}
         </div>
+      </Reveal>
+
+      <Reveal className="mt-14">
+        <h2 className="mb-5 text-xl font-semibold tracking-tight text-foreground">
+          Places I’ve been
+        </h2>
+        <VisitedGlobe />
       </Reveal>
 
       <Reveal className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted">

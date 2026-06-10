@@ -8,9 +8,12 @@ export interface Project {
   slug: string
   title: string
   subtitle: string
-  // personal framing
+  // story framing (Overview → Why → Role → Learned → Next step)
+  overview?: string
   why?: string
+  role?: string
   learned?: string
+  nextStep?: string
   improve?: string
   // legacy / optional
   problem?: string
@@ -43,8 +46,11 @@ export async function getProjects(): Promise<Project[]> {
         slug,
         title: data.title || slug,
         subtitle: data.subtitle || '',
+        overview: data.overview,
         why: data.why,
+        role: data.role,
         learned: data.learned,
+        nextStep: data.nextStep,
         improve: data.improve,
         problem: data.problem,
         design: data.design,

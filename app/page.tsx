@@ -1,45 +1,25 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import Hero from '@/components/Hero'
-import BentoGrid from '@/components/BentoGrid'
-import RecentlyAdded from '@/components/RecentlyAdded'
-import CurrentlyExploring from '@/components/CurrentlyExploring'
-import SectionTitle from '@/components/SectionTitle'
+import AmbientBackground from '@/components/AmbientBackground'
+import CinematicHero from '@/components/home/CinematicHero'
+import InteractiveWorkIndex from '@/components/home/InteractiveWorkIndex'
+import LabPreviewGrid from '@/components/home/LabPreviewGrid'
+import BookshelfPreview from '@/components/home/BookshelfPreview'
+import QuietHomeFooter from '@/components/home/QuietHomeFooter'
+import { getCollection } from '@/lib/content'
+import { getProjects } from '@/lib/getProjects'
 
-export default function Home() {
+export default async function Home() {
+  const reading = getCollection('reading')
+  const labEntries = getCollection('ui-lab')
+  const projectEntries = await getProjects()
+
   return (
-    <>
-      <Hero />
-
-      <section className="section-container py-20 sm:py-28">
-        <SectionTitle
-          eyebrow="The collection"
-          title="Wings of the archive"
-          intro="Notes, experiments, projects, reading — each a different shelf in the same quiet room. Pick one and wander in."
-          className="mb-10"
-        />
-        <BentoGrid />
-      </section>
-
-      <section className="section-container pb-8">
-        <SectionTitle
-          eyebrow="Lately"
-          title="Recently added"
-          className="mb-8"
-          action={
-            <Link
-              href="/notes"
-              className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-warm"
-            >
-              All notes
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          }
-        />
-        <RecentlyAdded />
-      </section>
-
-      <CurrentlyExploring />
-    </>
+    <div className="relative isolate overflow-hidden bg-[#050506]">
+      <AmbientBackground variant="home" />
+      <CinematicHero />
+      <InteractiveWorkIndex projects={projectEntries} />
+      <LabPreviewGrid entries={labEntries.slice(0, 3)} />
+      <BookshelfPreview current={reading[0] ?? null} secondary={reading.slice(1, 3)} />
+      <QuietHomeFooter />
+    </div>
   )
 }

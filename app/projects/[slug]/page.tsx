@@ -24,11 +24,14 @@ export default async function ProjectPage({ params }: Props) {
   const project = await getProjectBySlug(params.slug)
   if (!project) notFound()
 
-  // Prefer the personal framing, falling back to the older field names.
+  // The project, told as a short story. Each section falls back to older
+  // field names so existing notes keep rendering.
   const sections = [
-    { title: 'Why I made it', content: project.why ?? project.problem },
+    { title: 'Overview', content: project.overview },
+    { title: 'Why I built it', content: project.why ?? project.problem },
+    { title: 'My role', content: project.role },
     { title: 'What I learned', content: project.learned ?? project.lessons },
-    { title: 'What I’d improve', content: project.improve ?? project.nextSteps },
+    { title: 'Next step', content: project.nextStep ?? project.improve ?? project.nextSteps },
   ].filter((s) => s.content)
 
   return (
@@ -50,9 +53,12 @@ export default async function ProjectPage({ params }: Props) {
         </header>
 
         <div className="grid gap-4">
-          {sections.map((section) => (
+          {sections.map((section, i) => (
             <div key={section.title} className="glass p-6">
-              <h2 className="mb-3 text-base font-semibold tracking-tight text-foreground">
+              <h2 className="mb-3 flex items-center gap-3 text-base font-semibold tracking-tight text-foreground">
+                <span className="font-mono text-xs text-warm/70">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 {section.title}
               </h2>
               <p className="leading-relaxed text-muted">{section.content}</p>

@@ -119,6 +119,25 @@ export const projects: Project[] = [
   },
 ]
 
+/* ----------------------------------------------------------- Learning Stack */
+
+export interface Skill {
+  label: string
+  /** 0–100 — be honest, it's more relatable than perfect */
+  value: number
+  /** a short, human label for where you're at */
+  level: string
+}
+
+export const learningStack: Skill[] = [
+  { label: 'HTML / CSS', value: 80, level: 'Comfortable' },
+  { label: 'JavaScript', value: 60, level: 'Getting there' },
+  { label: 'React', value: 55, level: 'Learning' },
+  { label: 'GitHub', value: 65, level: 'Daily use' },
+  { label: 'AI Coding Tools', value: 78, level: 'Comfortable' },
+  { label: 'Writing', value: 50, level: 'Practicing' },
+]
+
 /* --------------------------------------------------------------- Top stats */
 
 export interface DashboardStat {

@@ -1,9 +1,9 @@
 export interface ShelfBook {
   title: string
   author: string
-  /** optional cover image path under /public; falls back to a gradient + initials */
+  /** legacy field; current UI always renders generated placeholder covers */
   cover?: string
-  /** tailwind gradient classes used when there's no cover image */
+  /** legacy accent hint kept for compatibility with older shelves */
   color?: string
   /** slug of a written reading note, if one exists — makes the circle a link */
   noteSlug?: string
