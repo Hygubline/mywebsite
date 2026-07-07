@@ -27,14 +27,15 @@ export default function SectionTitle({
   return (
     <Reveal className={className}>
       {eyebrow && (
-        <p className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-warm/70">
-          {eyebrow}
+        <p className="mb-4 flex items-center gap-3">
+          <span className="gilded-rule w-10" />
+          <span className="eyebrow">{eyebrow}</span>
         </p>
       )}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <Heading
-          className={`font-bold tracking-tight text-foreground ${
-            Heading === 'h1' ? 'text-3xl sm:text-4xl' : 'text-2xl sm:text-3xl'
+          className={`font-display font-semibold tracking-tight text-foreground ${
+            Heading === 'h1' ? 'text-4xl sm:text-5xl' : 'text-3xl sm:text-4xl'
           }`}
         >
           {title}

@@ -11,29 +11,30 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
       },
       colors: {
-        // Midnight study room — a near-black with a faint violet undertone,
-        // warm cream text, muted gold and amber glow, and a whisper of iris.
-        background: '#0a090f',
+        // Gilded nocturne — velvet ink-blue night, ivory silk text,
+        // champagne gold light, and a breath of wisteria violet.
+        background: '#08080f',
         surface: {
-          DEFAULT: '#141219',
-          light: '#1c1922',
+          DEFAULT: '#100f1a',
+          light: '#181624',
         },
-        foreground: '#ece4d6',
-        muted: '#988f82',
-        warm: '#e3a86f', // amber glow
-        gold: '#d8b878', // muted gold highlight
-        iris: '#8c7bd6', // sparing blue/purple
-        clay: '#c97c5d',
-        sage: '#8aa394',
+        foreground: '#f1eadb',
+        muted: '#a89d90',
+        warm: '#e6b877', // champagne gold
+        gold: '#d9c08a', // pale gold highlight
+        iris: '#a08ee8', // wisteria violet
+        clay: '#cf8663',
+        sage: '#93ac9c',
         // Legacy accents kept so older utility pages keep compiling.
         accent: {
           cyan: '#22d3ee',
           blue: '#3b82f6',
           gold: '#f59e0b',
         },
-        border: 'rgba(236, 228, 214, 0.08)',
+        border: 'rgba(241, 234, 219, 0.09)',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-out forwards',
@@ -43,6 +44,8 @@ const config: Config = {
         'float-slower': 'float 14s ease-in-out infinite',
         shimmer: 'shimmer 2.4s linear infinite',
         'pulse-soft': 'pulseSoft 3.5s ease-in-out infinite',
+        aurora: 'aurora 26s ease-in-out infinite alternate',
+        'aurora-slow': 'auroraSlow 38s ease-in-out infinite alternate',
       },
       keyframes: {
         fadeIn: {
@@ -68,6 +71,14 @@ const config: Config = {
         pulseSoft: {
           '0%, 100%': { opacity: '0.5' },
           '50%': { opacity: '1' },
+        },
+        aurora: {
+          '0%': { transform: 'translate3d(-4%, -2%, 0) rotate(-2deg) scale(1)' },
+          '100%': { transform: 'translate3d(4%, 3%, 0) rotate(2deg) scale(1.08)' },
+        },
+        auroraSlow: {
+          '0%': { transform: 'translate3d(3%, 2%, 0) scale(1.05)' },
+          '100%': { transform: 'translate3d(-3%, -3%, 0) scale(1)' },
         },
       },
     },

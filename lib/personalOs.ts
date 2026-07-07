@@ -1,9 +1,8 @@
 /**
- * Static data for the "Personal OS" dashboard.
+ * Static data for the "Personal OS" page.
  *
- * This is the ONE place to edit your goals, weekly plan, and projects.
- * No backend or database — just plain arrays. Add, remove, or tweak entries
- * here and the page updates automatically.
+ * This is the ONE place to edit your yearly goals, systems, and focus areas.
+ * No backend or database, just plain arrays.
  */
 
 export type GoalStatus = 'Done' | 'On Track' | 'In Progress' | 'Planned'
@@ -12,13 +11,12 @@ export type ProjectStatus = 'Shipped' | 'Building' | 'Designing' | 'Planning'
 export interface Goal {
   title: string
   category: string
-  /** 0–100 */
+  /** 0-100 */
   progress: number
   status: GoalStatus
 }
 
 export interface WeeklyTask {
-  /** Full weekday name — must match the JS Date weekday (e.g. "Monday"). */
   day: string
   focus: string
   task: string
@@ -30,104 +28,130 @@ export interface Project {
   stage: string
   status: ProjectStatus
   tech: string[]
-  /** 0–100 */
+  /** 0-100 */
   progress: number
   nextStep: string
+}
+
+export interface Skill {
+  label: string
+  /** 0-100 */
+  value: number
+  level: string
+}
+
+export interface DashboardStat {
+  label: string
+  value: string
+  hint: string
+}
+
+export interface SystemNote {
+  title: string
+  detail: string
 }
 
 /* ---------------------------------------------------------------- Year Goals */
 
 export const yearGoals: Goal[] = [
   {
-    title: 'Build Personal Website V1',
-    category: 'Portfolio',
-    progress: 80,
-    status: 'On Track',
-  },
-  {
-    title: 'Finish 3 Portfolio Projects',
-    category: 'Engineering',
-    progress: 55,
+    title: 'Save money and build a real cushion',
+    category: 'Money',
+    progress: 22,
     status: 'In Progress',
   },
   {
-    title: 'Improve Resume',
-    category: 'Career',
-    progress: 40,
+    title: 'Learn AI agents deeply enough to build with confidence',
+    category: 'Learning',
+    progress: 28,
     status: 'In Progress',
   },
   {
-    title: 'Apply to Entry-Level Jobs',
-    category: 'Career',
-    progress: 25,
+    title: 'Start making money online from skills and experiments',
+    category: 'Income',
+    progress: 12,
     status: 'Planned',
   },
   {
-    title: 'Read 12 Books',
-    category: 'Growth',
-    progress: 33,
+    title: 'Build a consistent fitness and nutrition routine',
+    category: 'Health',
+    progress: 36,
     status: 'On Track',
+  },
+  {
+    title: 'Read 10 books and write a reflection for each one',
+    category: 'Reading',
+    progress: 20,
+    status: 'In Progress',
+  },
+  {
+    title: 'Build a personal life system I can actually keep',
+    category: 'Systems',
+    progress: 25,
+    status: 'In Progress',
   },
 ]
 
-/* --------------------------------------------------------------- Weekly Plan */
+/* ------------------------------------------------------------ Annual Systems */
 
-export const weeklyPlan: WeeklyTask[] = [
-  { day: 'Monday', focus: 'Deep Work', task: 'Build new website section', done: true },
-  { day: 'Tuesday', focus: 'Learning', task: 'Study React patterns', done: true },
-  { day: 'Wednesday', focus: 'Projects', task: 'Ship Ocean Cabinet page', done: false },
-  { day: 'Thursday', focus: 'Career', task: 'Polish resume bullet points', done: false },
-  { day: 'Friday', focus: 'Review', task: 'Code review + refactor', done: false },
-  { day: 'Saturday', focus: 'Reading', task: 'Read 30 pages', done: false },
-  { day: 'Sunday', focus: 'Reset', task: 'Plan next week', done: false },
+export const systemNotes: SystemNote[] = [
+  {
+    title: 'Long timeline over weekly pressure',
+    detail:
+      'This page is meant to hold a full-year direction, not a weekly scoreboard. I want something I can update slowly without pretending my life fits into a rigid dashboard.',
+  },
+  {
+    title: 'Build momentum through repeatable habits',
+    detail:
+      'Money, health, reading, and skill-building all work better when the system is simple enough to repeat, even during messy weeks.',
+  },
+  {
+    title: 'Turn learning into visible proof',
+    detail:
+      'The goal is not just consuming information. I want to turn what I learn into projects, writing, experiments, and eventually income.',
+  },
 ]
 
-/* ------------------------------------------------------------ Project Tracker */
+export const currentBooks = ['Educated', 'Strait Is the Gate']
+
+/* ------------------------------------------------------------ Focus Areas */
 
 export const projects: Project[] = [
   {
-    name: 'Personal Website',
-    stage: 'V1 launch polish',
+    name: 'AI Agent Learning Path',
+    stage: 'Core concepts and hands-on builds',
     status: 'Building',
-    tech: ['Next.js', 'TypeScript', 'Tailwind'],
-    progress: 80,
-    nextStep: 'Finish Personal OS dashboard',
+    tech: ['Agents', 'Automation', 'Prompting'],
+    progress: 30,
+    nextStep: 'Study real workflows and ship one useful agent experiment',
   },
   {
-    name: 'Ocean Cabinet Website',
-    stage: 'Building pages',
+    name: 'Online Income Experiments',
+    stage: 'Finding small offers worth testing',
     status: 'Building',
-    tech: ['Next.js', 'Tailwind'],
-    progress: 60,
-    nextStep: 'Wire up product gallery',
-  },
-  {
-    name: 'Restaurant Menu System',
-    stage: 'Design + data model',
-    status: 'Designing',
-    tech: ['React', 'TypeScript'],
-    progress: 35,
-    nextStep: 'Define menu data schema',
-  },
-  {
-    name: 'AI Learning Tracker',
-    stage: 'Concept',
-    status: 'Planning',
-    tech: ['Next.js', 'OpenAI API'],
+    tech: ['Writing', 'Products', 'Internet'],
     progress: 15,
-    nextStep: 'Sketch core screens',
+    nextStep: 'Choose one small idea to test and document the result',
+  },
+  {
+    name: 'Health Routine',
+    stage: 'Consistency over intensity',
+    status: 'Building',
+    tech: ['Training', 'Nutrition', 'Sleep'],
+    progress: 38,
+    nextStep: 'Keep a routine simple enough to repeat every week',
+  },
+  {
+    name: 'Life System',
+    stage: 'Designing a calmer structure for work and growth',
+    status: 'Designing',
+    tech: ['Reflection', 'Planning', 'Review'],
+    progress: 24,
+    nextStep: 'Define the few rules and check-ins worth keeping all year',
   },
 ]
 
 /* ----------------------------------------------------------- Learning Stack */
-
-export interface Skill {
-  label: string
-  /** 0–100 — be honest, it's more relatable than perfect */
-  value: number
-  /** a short, human label for where you're at */
-  level: string
-}
 
 export const learningStack: Skill[] = [
   { label: 'HTML / CSS', value: 80, level: 'Comfortable' },
@@ -140,16 +164,6 @@ export const learningStack: Skill[] = [
 
 /* --------------------------------------------------------------- Top stats */
 
-export interface DashboardStat {
-  label: string
-  value: string
-  hint: string
-}
-
-/**
- * Top-of-page summary stats. Values are derived from the arrays above so they
- * stay in sync when you edit goals or projects.
- */
 export const dashboardStats: DashboardStat[] = [
   {
     label: '2026 Goals',
@@ -159,13 +173,13 @@ export const dashboardStats: DashboardStat[] = [
     ).length} in motion`,
   },
   {
-    label: 'Active Projects',
-    value: String(projects.filter((p) => p.status !== 'Shipped').length),
-    hint: `${projects.length} tracked total`,
+    label: 'Books Progress',
+    value: '2 / 10',
+    hint: currentBooks.join(' · '),
   },
   {
-    label: 'Weekly Focus',
-    value: `${weeklyPlan.filter((t) => t.done).length}/${weeklyPlan.length}`,
-    hint: 'tasks done this week',
+    label: 'Time Horizon',
+    value: '2026',
+    hint: 'Yearly direction, not weekly pressure',
   },
 ]

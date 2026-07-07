@@ -1,40 +1,16 @@
 import Link from 'next/link'
-import { Github, GraduationCap, Linkedin, Mail, MapPin } from 'lucide-react'
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
 import AmbientBackground from '@/components/AmbientBackground'
 import Hero from '@/components/Hero'
 import SectionTitle from '@/components/SectionTitle'
 import Tag from '@/components/Tag'
 import Reveal from '@/components/anim/Reveal'
+import { getCollection } from '@/lib/content'
 import { getProjects } from '@/lib/getProjects'
-import { learningStack } from '@/lib/personalOs'
 
 const aboutParagraphs = [
-  'I study computer science, build small web things, and use this site to collect thoughts, experiments, reading notes, and unfinished ideas.',
-  'I am especially drawn to the expressive side of front-end work: motion, atmosphere, and interfaces that feel considered instead of merely functional.',
-]
-
-const experienceItems = [
-  {
-    title: 'Computer Science Student',
-    meta: 'Hunter College',
-    detail:
-      'Building a stronger software foundation while using this site as a public record of what I am learning.',
-    Icon: GraduationCap,
-  },
-  {
-    title: 'Frontend-Focused Builder',
-    meta: 'Personal projects',
-    detail:
-      'Designing and shipping small web experiences with Next.js, TypeScript, Tailwind CSS, and motion-driven UI details.',
-    Icon: MapPin,
-  },
-  {
-    title: 'Open to Opportunities',
-    meta: 'New York / Remote',
-    detail:
-      'Actively looking for frontend and software internship opportunities where I can keep growing through real product work.',
-    Icon: Mail,
-  },
+  'I study computer science and use the web as a place to make ideas visible. Most of what I build lives somewhere between product thinking, front-end craft, and personal curiosity.',
+  'This homepage is intentionally small now: just enough to say who I am, show a few projects, share a few thoughts, and leave the door open for conversation.',
 ]
 
 const contactLinks = [
@@ -61,6 +37,7 @@ const contactLinks = [
 export default async function Home() {
   const projects = await getProjects()
   const featuredProjects = projects.slice(0, 3)
+  const recentNotes = getCollection('notes').slice(0, 3)
 
   return (
     <div className="relative isolate overflow-hidden bg-background">
@@ -70,9 +47,9 @@ export default async function Home() {
 
       <section className="section-container relative z-10 py-20 sm:py-24" id="about">
         <SectionTitle
-          eyebrow="About"
-          title="A personal website built as a living workspace."
-          intro="This homepage is meant to feel like an overview of who I am, what I build, and where I am trying to go next."
+          eyebrow="No. 01 - About"
+          title="A quieter introduction."
+          intro="Less like a full archive, more like a front room: who I am, what I am making, what I am thinking about, and how to reach me."
           className="mb-10"
         />
 
@@ -84,16 +61,17 @@ export default async function Home() {
           </div>
 
           <div className="glass-card rounded-3xl p-6 sm:p-7">
-            <p className="text-xs uppercase tracking-[0.24em] text-warm/70">Now</p>
-            <p className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
-              Learning in public, building in small steady steps.
+            <p className="eyebrow">Right now</p>
+            <p className="font-display mt-4 text-2xl font-medium italic leading-snug tracking-tight text-foreground">
+              Building small, atmospheric web work with{' '}
+              <span className="text-gold-foil">care and patience.</span>
             </p>
             <p className="mt-4 text-sm leading-7 text-muted">
-              Projects, notes, experiments, and systems all live together here so the
-              site can grow alongside my work.
+              I am especially drawn to interfaces with mood, restraint, and a little
+              emotional texture instead of noise.
             </p>
-            <Link href="/about" className="btn-secondary mt-6">
-              Read more about me
+            <Link href="#contact" className="btn-secondary mt-6">
+              Get in touch
             </Link>
           </div>
         </Reveal>
@@ -101,22 +79,36 @@ export default async function Home() {
 
       <section className="section-container relative z-10 py-20 sm:py-24" id="projects">
         <SectionTitle
-          eyebrow="Projects"
-          title="Selected builds and ongoing work."
-          intro="A few recent projects that best represent what I have been making and studying."
+          eyebrow="No. 02 - Projects"
+          title="A few projects worth opening."
+          intro="Selected work that reflects how I like to build: focused ideas, clean systems, and front-end detail that earns its place."
+          action={
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 text-sm text-warm transition-colors hover:text-foreground"
+            >
+              See all projects
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          }
           className="mb-10"
         />
 
         <Reveal stagger={0.08} className="grid gap-4 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
+          {featuredProjects.map((project, index) => (
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
               className="glass-card glow-hover group flex h-full flex-col rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1"
             >
-              <p className="text-xs uppercase tracking-[0.22em] text-warm/70">
-                {project.subtitle || 'Project'}
-              </p>
+              <div className="flex items-baseline justify-between gap-3">
+                <p className="text-xs uppercase tracking-[0.22em] text-warm/70">
+                  {project.subtitle || 'Project'}
+                </p>
+                <span className="font-display text-2xl italic leading-none text-warm/25 transition-colors duration-500 group-hover:text-warm/60">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
               <h3 className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
                 {project.title}
               </h3>
@@ -135,69 +127,61 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      <section className="section-container relative z-10 py-20 sm:py-24" id="skills">
+      <section className="section-container relative z-10 py-20 sm:py-24" id="thoughts">
         <SectionTitle
-          eyebrow="Skills"
-          title="Tools and areas I am actively growing."
-          intro="An honest snapshot of the stack I use most often right now."
-          className="mb-10"
-        />
-
-        <Reveal className="glass-card rounded-3xl p-6 sm:p-8">
-          <div className="grid gap-6 sm:grid-cols-2">
-            {learningStack.map((skill) => (
-              <div key={skill.label}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{skill.label}</p>
-                    <p className="text-xs uppercase tracking-[0.18em] text-muted">
-                      {skill.level}
-                    </p>
-                  </div>
-                  <span className="text-sm text-warm">{skill.value}%</span>
-                </div>
-                <div className="mt-3 h-2 rounded-full bg-white/8">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-warm via-warm/80 to-iris/80"
-                    style={{ width: `${skill.value}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="section-container relative z-10 py-20 sm:py-24" id="experience">
-        <SectionTitle
-          eyebrow="Experience"
-          title="Where I am building experience right now."
-          intro="The repository does not currently expose formal work history on the homepage, so this section reflects the experience already described elsewhere in the site."
+          eyebrow="No. 03 - Thoughts"
+          title="Notes, questions, and small pieces of thinking."
+          intro="Not polished essays. Just the ideas I want to keep close while I am learning, building, and trying to become more deliberate."
+          action={
+            <Link
+              href="/notes"
+              className="inline-flex items-center gap-2 text-sm text-warm transition-colors hover:text-foreground"
+            >
+              Visit the notes
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          }
           className="mb-10"
         />
 
         <Reveal stagger={0.08} className="grid gap-4 lg:grid-cols-3">
-          {experienceItems.map(({ title, meta, detail, Icon }) => (
-            <div
-              key={title}
-              className="glass-card glow-hover rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1"
+          {recentNotes.map((note, index) => (
+            <Link
+              key={note.slug}
+              href={`/notes/${note.slug}`}
+              className="glass-card glow-hover group flex h-full flex-col rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1"
             >
-              <Icon className="h-5 w-5 text-warm" />
-              <p className="mt-4 text-xl font-semibold tracking-tight text-foreground">
-                {title}
+              <div className="flex items-baseline justify-between gap-3">
+                <p className="text-xs uppercase tracking-[0.22em] text-warm/70">
+                  {note.date.slice(0, 10)}
+                </p>
+                <span className="font-display text-2xl italic leading-none text-warm/25 transition-colors duration-500 group-hover:text-warm/60">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
+                {note.title}
+              </h3>
+              <p className="mt-4 flex-1 text-sm leading-7 text-muted">
+                {note.summary || 'A recent note from the garden.'}
               </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted">{meta}</p>
-              <p className="mt-4 text-sm leading-7 text-muted">{detail}</p>
-            </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {(note.tags || []).slice(0, 3).map((tag) => (
+                  <Tag key={tag} tone="warm">
+                    {tag}
+                  </Tag>
+                ))}
+              </div>
+            </Link>
           ))}
         </Reveal>
       </section>
 
       <section className="section-container relative z-10 py-20 pb-24 sm:py-24 sm:pb-28" id="contact">
         <SectionTitle
-          eyebrow="Contact"
-          title="Let’s talk."
-          intro="The fastest way to reach me is email, but you can also find me on GitHub and LinkedIn."
+          eyebrow="No. 04 - Contact"
+          title="Say hello."
+          intro="If something here resonates, email is still the best doorbell."
           className="mb-10"
         />
 
@@ -210,7 +194,9 @@ export default async function Home() {
               rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
               className="glass-card glow-hover group flex flex-col rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1"
             >
-              <Icon className="h-5 w-5 text-warm transition-transform duration-300 group-hover:scale-110" />
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-warm/25 bg-warm/[0.07] transition-transform duration-300 group-hover:scale-110">
+                <Icon className="h-[18px] w-[18px] text-warm" />
+              </span>
               <span className="mt-4 text-sm font-medium text-foreground">{label}</span>
               <span className="mt-1 text-sm text-muted">{value}</span>
             </a>

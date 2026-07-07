@@ -1,101 +1,99 @@
 import Link from 'next/link'
-import { ArrowRight, ArrowDown } from 'lucide-react'
+import { ArrowDown, ArrowRight } from 'lucide-react'
 import AnimatedText from '@/components/AnimatedText'
 import FloatingFragments from '@/components/FloatingFragments'
+import HeroParticleField from '@/components/HeroParticleField'
 import MagneticCard from '@/components/MagneticCard'
 
-/** Identity labels — edit these to change how you introduce yourself. */
-const identityTags = [
-  'CS Student',
-  'Frontend Learner',
-  'AI-assisted Builder',
-  'Personal Website Explorer',
-]
+const identityTags = ['Intro', 'Projects', 'Thoughts', 'Contact']
 
-/**
- * The entrance to the site — a personal digital space. A large wordmark reveals
- * line by line over a soft animated gradient mesh, followed by identity labels,
- * a short personal statement, and magnetic call-to-action buttons.
- */
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* atmosphere */}
-      <div className="gradient-mesh absolute inset-0 opacity-50" />
+      <HeroParticleField />
+      <div className="aurora-veil" />
+      <div className="aurora-veil aurora-veil--secondary" />
       <div className="hero-spotlight absolute inset-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/55 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/50 to-background" />
       <FloatingFragments />
 
       <div className="section-container relative z-10 py-32">
         <div
-          className="mb-8 inline-flex animate-fade-in items-center gap-2 rounded-full border border-border bg-surface/50 px-3 py-1.5 backdrop-blur-md"
+          className="mb-10 flex animate-fade-in items-center gap-4"
           style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}
         >
-          <span className="h-2 w-2 animate-pulse-soft rounded-full bg-warm" />
-          <span className="text-xs font-medium tracking-wide text-muted">
+          <span className="gilded-rule w-14" />
+          <span className="eyebrow flex items-center gap-2.5">
+            <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-warm" />
             Personal digital space · est. 2026
           </span>
+          <span className="gilded-rule w-14" />
         </div>
 
         <AnimatedText
           as="h1"
-          text="YUN HE"
+          text="Yun He"
           delay={0.15}
-          stagger={0.08}
-          className="text-6xl font-bold leading-[0.95] tracking-tight text-foreground sm:text-7xl md:text-8xl"
+          stagger={0.09}
+          className="font-display text-7xl font-semibold leading-[0.92] tracking-tight text-foreground sm:text-8xl md:text-9xl"
         />
 
         <p
-          className="text-archive-gradient mt-3 animate-slide-up text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl"
+          className="text-gold-foil font-display mt-4 animate-slide-up text-3xl font-medium italic leading-tight tracking-tight sm:text-4xl md:text-5xl"
           style={{ animationDelay: '0.85s', opacity: 0, animationFillMode: 'forwards' }}
         >
-          Learning in public
+          builder, student,
+          <span className="text-foreground/90"> and quiet internet resident.</span>
         </p>
 
-        {/* identity labels */}
         <div
-          className="mt-7 flex animate-slide-up flex-wrap gap-2.5"
+          className="mt-9 flex animate-slide-up flex-wrap gap-2.5"
           style={{ animationDelay: '1.0s', opacity: 0, animationFillMode: 'forwards' }}
         >
           {identityTags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/40 px-3.5 py-1.5 text-sm text-foreground/80 backdrop-blur-md transition-colors hover:border-warm/30 hover:text-foreground"
+              className="inline-flex items-center gap-2 rounded-full border border-warm/15 bg-surface/40 px-3.5 py-1.5 text-[13px] tracking-wide text-foreground/75 backdrop-blur-md transition-colors duration-300 hover:border-warm/40 hover:text-foreground"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-warm/80" />
+              <span className="h-1 w-1 rounded-full bg-warm/80" />
               {tag}
             </span>
           ))}
         </div>
 
         <p
-          className="mt-7 max-w-xl animate-slide-up text-lg leading-relaxed text-foreground/80 sm:text-xl"
+          className="mt-8 max-w-2xl animate-slide-up text-lg leading-relaxed text-foreground/75 sm:text-xl"
           style={{ animationDelay: '1.15s', opacity: 0, animationFillMode: 'forwards' }}
         >
-          I’m building a personal digital space to record what I learn, what I
-          build, and how I grow.
+          This site is a smaller personal space: a short introduction, a few projects
+          I care about, some notes on what I am thinking through, and a simple way to
+          reach me.
         </p>
 
         <div
-          className="mt-10 flex animate-slide-up flex-wrap items-center gap-4"
+          className="mt-11 flex animate-slide-up flex-wrap items-center gap-4"
           style={{ animationDelay: '1.35s', opacity: 0, animationFillMode: 'forwards' }}
         >
           <MagneticCard strength={0.3} className="inline-block">
-            <Link href="/projects" className="btn-primary">
+            <Link href="#projects" className="btn-primary">
               View projects
               <ArrowRight className="relative h-4 w-4" />
             </Link>
           </MagneticCard>
           <MagneticCard strength={0.25} className="inline-block">
-            <Link href="/personal-os" className="btn-secondary">
-              Open Personal OS
+            <Link href="#thoughts" className="btn-secondary">
+              Read thoughts
             </Link>
           </MagneticCard>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted/40">
-        <ArrowDown size={20} className="animate-bounce" />
+      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3">
+        <span
+          className="gilded-rule h-10 w-px"
+          style={{ background: 'linear-gradient(180deg, transparent, rgba(230,184,119,0.5))' }}
+        />
+        <ArrowDown size={16} className="animate-bounce text-warm/50" />
       </div>
     </section>
   )

@@ -1,29 +1,28 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
+import { Fraunces } from 'next/font/google'
 import './globals.css'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import CursorGlow from '@/components/CursorGlow'
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  style: ['normal', 'italic'],
+  axes: ['opsz', 'SOFT', 'WONK'],
+})
+
 export const metadata: Metadata = {
-  title: 'Yun He — Digital Archive',
+  title: 'Yun He - Personal Site',
   description:
-    'A living collection of code, projects, notes, books, and fragments of thought — a quiet, cinematic personal archive by Yun He.',
-  keywords: [
-    'digital archive',
-    'personal website',
-    'thought archive',
-    'UI lab',
-    'front-end experiments',
-    'reading notes',
-    'creative coding',
-  ],
+    'A cinematic personal website by Yun He with a short introduction, selected projects, personal notes, and contact.',
+  keywords: ['personal website', 'frontend developer', 'projects', 'notes', 'portfolio'],
   authors: [{ name: 'Yun He' }],
   openGraph: {
-    title: 'Yun He — Digital Archive',
-    description:
-      'A living collection of code, projects, notes, books, and fragments of thought.',
+    title: 'Yun He - Personal Site',
+    description: 'A cinematic personal website with selected projects, notes, and contact.',
     type: 'website',
   },
 }
@@ -34,7 +33,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable}`}
+    >
       <body className="font-sans bg-background text-foreground">
         <CursorGlow />
         <SiteHeader />

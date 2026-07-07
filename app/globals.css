@@ -11,6 +11,24 @@
   }
 }
 
+@keyframes aurora {
+  0% {
+    transform: translate3d(-4%, -2%, 0) rotate(-2deg) scale(1);
+  }
+  100% {
+    transform: translate3d(4%, 3%, 0) rotate(2deg) scale(1.08);
+  }
+}
+
+@keyframes auroraSlow {
+  0% {
+    transform: translate3d(3%, 2%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-3%, -3%, 0) scale(1);
+  }
+}
+
 @keyframes ambientDriftSlow {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -24,20 +42,29 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'kern' 1, 'liga' 1;
-    /* layered atmosphere: warm lamplight, a cool iris pool, deep navy floor */
+    /* gilded nocturne: candlelight in the upper left, wisteria dusk on the
+       right, a faint emerald pool sleeping at the bottom */
     background-image:
-      radial-gradient(1000px 700px at 8% -8%, rgba(227, 168, 111, 0.07), transparent 60%),
-      radial-gradient(820px 620px at 100% 0%, rgba(140, 123, 214, 0.06), transparent 55%),
-      radial-gradient(900px 900px at 50% 120%, rgba(138, 163, 148, 0.04), transparent 60%);
+      radial-gradient(1100px 760px at 10% -10%, rgba(230, 184, 119, 0.09), transparent 60%),
+      radial-gradient(900px 680px at 102% -2%, rgba(160, 142, 232, 0.08), transparent 55%),
+      radial-gradient(760px 560px at 82% 58%, rgba(207, 134, 99, 0.045), transparent 55%),
+      radial-gradient(980px 940px at 40% 118%, rgba(147, 172, 156, 0.05), transparent 60%);
     background-attachment: fixed;
   }
 
   ::selection {
-    @apply bg-warm/25 text-foreground;
+    @apply bg-warm/30 text-background;
+  }
+
+  /* Display serif for every heading — the site's editorial voice. */
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-semibold tracking-tight text-foreground;
   }
 
   h1 {
-    @apply text-3xl sm:text-4xl font-bold tracking-tight text-foreground;
+    @apply text-3xl sm:text-4xl;
   }
 
   /* Fine film-grain noise over everything, fixed so it doesn't scroll. */
@@ -59,9 +86,48 @@
 
   .home-hero-shell {
     background:
-      radial-gradient(1200px 680px at 20% 14%, rgba(216, 149, 74, 0.09), transparent 46%),
-      radial-gradient(980px 720px at 84% 16%, rgba(255, 255, 255, 0.04), transparent 28%),
-      linear-gradient(180deg, #060607 0%, #08090b 42%, #050506 100%);
+      radial-gradient(1200px 680px at 20% 14%, rgba(230, 184, 119, 0.1), transparent 46%),
+      radial-gradient(980px 720px at 84% 16%, rgba(160, 142, 232, 0.06), transparent 30%),
+      linear-gradient(180deg, #06060c 0%, #080810 42%, #050509 100%);
+  }
+
+  /* Silk aurora ribbons that drift behind the hero. */
+  .aurora-veil {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    filter: blur(60px);
+    opacity: 0.5;
+    background:
+      radial-gradient(38rem 22rem at 24% 28%, rgba(230, 184, 119, 0.2), transparent 60%),
+      radial-gradient(44rem 24rem at 74% 22%, rgba(160, 142, 232, 0.16), transparent 62%),
+      radial-gradient(34rem 26rem at 58% 74%, rgba(207, 134, 99, 0.1), transparent 60%);
+    animation: aurora 26s ease-in-out infinite alternate;
+  }
+
+  .aurora-veil--secondary {
+    opacity: 0.32;
+    filter: blur(80px);
+    background:
+      radial-gradient(30rem 20rem at 80% 66%, rgba(217, 192, 138, 0.14), transparent 58%),
+      radial-gradient(36rem 22rem at 14% 72%, rgba(160, 142, 232, 0.1), transparent 60%);
+    animation: auroraSlow 38s ease-in-out infinite alternate;
+  }
+
+  /* Hairline gold rule with a bright center — used as an ornament. */
+  .gilded-rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(230, 184, 119, 0.55) 50%,
+      transparent
+    );
+  }
+
+  /* Small-caps golden eyebrow label. */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.3em] text-warm/80;
   }
 
   .lab-panel {
@@ -81,7 +147,7 @@
 
   .work-page-shell {
     background:
-      radial-gradient(1200px 700px at 72% 12%, rgba(216, 149, 74, 0.08), transparent 34%),
+      radial-gradient(1200px 700px at 72% 12%, rgba(230, 184, 119, 0.08), transparent 34%),
       radial-gradient(960px 720px at 18% 88%, rgba(255, 255, 255, 0.035), transparent 24%),
       linear-gradient(180deg, #050506 0%, #070708 100%);
   }
@@ -102,9 +168,9 @@
   .ambient-background__glow {
     opacity: 0.22;
     background:
-      radial-gradient(54rem 34rem at 20% 16%, rgba(216, 149, 74, 0.16), transparent 52%),
+      radial-gradient(54rem 34rem at 20% 16%, rgba(230, 184, 119, 0.16), transparent 52%),
       radial-gradient(42rem 28rem at 78% 14%, rgba(255, 255, 255, 0.045), transparent 42%),
-      radial-gradient(44rem 34rem at 52% 88%, rgba(216, 149, 74, 0.08), transparent 50%);
+      radial-gradient(44rem 34rem at 52% 88%, rgba(230, 184, 119, 0.08), transparent 50%);
     filter: blur(14px);
     animation: ambientDrift 24s ease-in-out infinite alternate;
   }
@@ -112,7 +178,7 @@
   .ambient-background__glow-secondary {
     opacity: 0.12;
     background:
-      radial-gradient(30rem 24rem at 76% 24%, rgba(216, 149, 74, 0.14), transparent 44%),
+      radial-gradient(30rem 24rem at 76% 24%, rgba(230, 184, 119, 0.14), transparent 44%),
       radial-gradient(26rem 22rem at 18% 70%, rgba(255, 255, 255, 0.04), transparent 38%);
     filter: blur(20px);
     animation: ambientDriftSlow 32s ease-in-out infinite alternate;
@@ -146,15 +212,15 @@
 
   .ambient-background-work .ambient-background__glow {
     background:
-      radial-gradient(58rem 32rem at 72% 14%, rgba(216, 149, 74, 0.18), transparent 48%),
+      radial-gradient(58rem 32rem at 72% 14%, rgba(230, 184, 119, 0.18), transparent 48%),
       radial-gradient(36rem 26rem at 16% 78%, rgba(255, 255, 255, 0.04), transparent 40%),
-      radial-gradient(38rem 28rem at 42% 54%, rgba(216, 149, 74, 0.06), transparent 48%);
+      radial-gradient(38rem 28rem at 42% 54%, rgba(230, 184, 119, 0.06), transparent 48%);
   }
 
   .ambient-background-work .ambient-background__glow-secondary {
     background:
       radial-gradient(30rem 20rem at 24% 18%, rgba(255, 255, 255, 0.035), transparent 38%),
-      radial-gradient(34rem 26rem at 78% 62%, rgba(216, 149, 74, 0.1), transparent 42%);
+      radial-gradient(34rem 26rem at 78% 62%, rgba(230, 184, 119, 0.1), transparent 42%);
   }
 
   .section-container {
@@ -165,15 +231,32 @@
     @apply max-w-3xl mx-auto px-5 sm:px-8 pt-28 pb-24 relative z-10;
   }
 
-  /* Glassmorphism surface: translucent, blurred, soft border + top highlight. */
+  /* Gilded glass: translucent, blurred, with a champagne hairline running
+     along the top edge like light caught on a picture frame. */
   .glass {
-    @apply rounded-2xl border border-border bg-surface/50 backdrop-blur-xl;
+    @apply relative rounded-2xl border border-border bg-surface/50 backdrop-blur-xl;
     box-shadow:
-      inset 0 1px 0 rgba(236, 228, 214, 0.05),
+      inset 0 1px 0 rgba(241, 234, 219, 0.06),
       0 18px 40px -24px rgba(0, 0, 0, 0.8);
   }
+  .glass::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-5 top-0 h-px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(230, 184, 119, 0.4) 50%,
+      transparent
+    );
+  }
   .glass-card {
-    @apply glass transition-colors duration-300 hover:border-warm/25;
+    @apply glass transition-all duration-500 hover:border-warm/30;
+  }
+  .glass-card:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(241, 234, 219, 0.08),
+      0 24px 60px -28px rgba(0, 0, 0, 0.9),
+      0 0 50px -18px rgba(230, 184, 119, 0.18);
   }
 
   /* Glow that fades in on hover, layered behind card content. */
@@ -185,7 +268,7 @@
     @apply pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500;
     background: radial-gradient(
       420px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(227, 168, 111, 0.1),
+      rgba(230, 184, 119, 0.12),
       transparent 45%
     );
   }
@@ -194,9 +277,18 @@
   }
 
   .btn-primary {
-    @apply relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-warm
-           px-6 py-3 text-sm font-medium text-background transition-all duration-200
-           hover:bg-warm/90 hover:shadow-lg hover:shadow-warm/25;
+    @apply relative inline-flex items-center gap-2 overflow-hidden rounded-full
+           px-6 py-3 text-sm font-medium text-background transition-all duration-300;
+    background: linear-gradient(135deg, #f0d19a 0%, #e6b877 45%, #cf9552 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      0 10px 30px -12px rgba(230, 184, 119, 0.5);
+  }
+  .btn-primary:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      0 14px 40px -12px rgba(230, 184, 119, 0.65);
+    transform: translateY(-1px);
   }
   /* A light streak that sweeps across the button on hover. */
   .btn-primary::before {
@@ -215,49 +307,60 @@
     transform: translateX(130%);
   }
   .btn-secondary {
-    @apply relative inline-flex items-center gap-2 rounded-full border border-border px-6 py-3
+    @apply relative inline-flex items-center gap-2 rounded-full border px-6 py-3
            text-sm font-medium text-foreground transition-all duration-300
-           hover:border-warm/30 hover:bg-white/5;
+           hover:bg-white/5;
+    border-color: rgba(230, 184, 119, 0.25);
+  }
+  .btn-secondary:hover {
+    border-color: rgba(230, 184, 119, 0.5);
+    box-shadow: 0 0 30px -12px rgba(230, 184, 119, 0.35);
   }
 
   /* Soft conic/radial spotlight behind the hero title. */
   .hero-spotlight {
     background: radial-gradient(
       circle at 50% 42%,
-      rgba(227, 168, 111, 0.16),
-      rgba(140, 123, 214, 0.08) 35%,
+      rgba(230, 184, 119, 0.16),
+      rgba(160, 142, 232, 0.09) 35%,
       transparent 68%
     );
   }
 
-  /* Warm-to-iris gradient text for the archive wordmark. */
+  /* Gold-foil gradient text — ivory into champagne into wisteria. */
   .text-archive-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(120deg, #ece4d6 0%, #e3a86f 45%, #8c7bd6 100%);
+    background-image: linear-gradient(115deg, #f6efe0 0%, #eec689 38%, #d9a55e 62%, #a08ee8 100%);
+  }
+
+  /* Pure gold-leaf text for large display moments. */
+  .text-gold-foil {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(160deg, #f7e3b8 0%, #e6b877 42%, #b9843f 72%, #eecf96 100%);
   }
 
   /* Animated gradient mesh, used for hero/preview backdrops. */
   .gradient-mesh {
     background:
-      radial-gradient(at 20% 30%, rgba(227, 168, 111, 0.18), transparent 50%),
-      radial-gradient(at 80% 20%, rgba(140, 123, 214, 0.16), transparent 50%),
-      radial-gradient(at 60% 80%, rgba(216, 184, 120, 0.12), transparent 50%);
+      radial-gradient(at 20% 30%, rgba(230, 184, 119, 0.2), transparent 50%),
+      radial-gradient(at 80% 20%, rgba(160, 142, 232, 0.18), transparent 50%),
+      radial-gradient(at 60% 80%, rgba(217, 192, 138, 0.14), transparent 50%);
     background-size: 200% 200%;
     @apply animate-gradient-pan;
   }
 
-  /* Long-form reading body. */
+  /* Long-form reading body — a touch larger and airier for comfort. */
   .prose {
-    @apply text-[0.975rem] leading-[1.85] text-muted;
+    @apply text-[1.02rem] leading-[1.9] text-muted;
   }
   .prose > * + * {
     @apply mt-5;
   }
   .prose h2 {
-    @apply mt-12 mb-2 text-xl font-semibold tracking-tight text-foreground;
+    @apply font-display mt-12 mb-2 text-2xl font-semibold tracking-tight text-foreground;
   }
   .prose h3 {
-    @apply mt-8 mb-1 text-lg font-medium tracking-tight text-foreground;
+    @apply font-display mt-8 mb-1 text-xl font-medium tracking-tight text-foreground;
   }
   .prose strong {
     @apply font-semibold text-foreground;
@@ -278,7 +381,7 @@
     @apply list-decimal space-y-2 pl-5 marker:text-warm/50;
   }
   .prose blockquote {
-    @apply border-l-2 border-warm/40 pl-5 italic text-foreground/80;
+    @apply font-display border-l-2 border-warm/50 pl-6 text-lg italic leading-relaxed text-foreground/85;
   }
 
   /* Standing book on the reading shelf: turned to reveal its spine, then
@@ -307,13 +410,13 @@
 
   .bookshelf-pill {
     @apply inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-sm transition;
-    border-color: rgba(227, 168, 111, 0.25);
-    background: rgba(227, 168, 111, 0.1);
+    border-color: rgba(230, 184, 119, 0.25);
+    background: rgba(230, 184, 119, 0.1);
     color: #e3a86f;
   }
   .bookshelf-pill:hover {
-    border-color: rgba(227, 168, 111, 0.4);
-    background: rgba(227, 168, 111, 0.15);
+    border-color: rgba(230, 184, 119, 0.4);
+    background: rgba(230, 184, 119, 0.15);
   }
 
   .bookshelf-pill-muted {
@@ -351,7 +454,7 @@
     position: absolute;
     background:
       linear-gradient(180deg, rgba(14, 13, 11, 0.92), rgba(26, 22, 18, 0.95)),
-      radial-gradient(circle at 50% 100%, rgba(227, 168, 111, 0.18), transparent 55%);
+      radial-gradient(circle at 50% 100%, rgba(230, 184, 119, 0.18), transparent 55%);
     box-shadow:
       inset 0 10px 24px rgba(255, 255, 255, 0.02),
       inset 0 -18px 28px rgba(0, 0, 0, 0.55),
@@ -435,9 +538,9 @@
     position: absolute;
     inset: 0 0 2.4rem;
     background:
-      radial-gradient(circle at 50% 20%, rgba(227, 168, 111, 0.42), transparent 26%),
-      radial-gradient(circle at 36% 40%, rgba(227, 168, 111, 0.18), transparent 18%),
-      radial-gradient(circle at 64% 45%, rgba(227, 168, 111, 0.16), transparent 18%);
+      radial-gradient(circle at 50% 20%, rgba(230, 184, 119, 0.42), transparent 26%),
+      radial-gradient(circle at 36% 40%, rgba(230, 184, 119, 0.18), transparent 18%),
+      radial-gradient(circle at 64% 45%, rgba(230, 184, 119, 0.16), transparent 18%);
     filter: blur(1px);
     opacity: 0.95;
   }
@@ -499,7 +602,7 @@
     background: rgba(255, 255, 255, 0.03);
   }
   .bookshelf-note-button:hover {
-    border-color: rgba(227, 168, 111, 0.3);
+    border-color: rgba(230, 184, 119, 0.3);
     color: #e3a86f;
   }
 }
@@ -512,11 +615,11 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(227, 168, 111, 0.2);
+  background: rgba(230, 184, 119, 0.25);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(227, 168, 111, 0.4);
+  background: rgba(230, 184, 119, 0.45);
 }
 
 html {
